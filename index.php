@@ -26,7 +26,7 @@
 			$('#diag1').live('click', function() {
 				$(this).simpledialog({
 					'mode' : 'bool',
-					'prompt' : 'Pick One!'
+					'prompt' : 'Pick One!',
 					'buttons' : {
 						'Yes': function () { 
 							$('#diag1').find('.ui-btn-text').text(
