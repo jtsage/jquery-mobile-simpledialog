@@ -18,7 +18,7 @@ SimpleDialog Features
 Available Options
 -----------------
 
-_These can be passed to datebox via an object set at the data-options attribute, or in the standard method_
+_These can be passed to the dialog via an object set at the data-options attribute, or in the standard method_
 
 ### Themeing:
 * __pickPageTheme__ : Theme for popup window or dialog
@@ -31,7 +31,9 @@ _These can be passed to datebox via an object set at the data-options attribute,
 * __prompt__ : Prompt for dialog
 * __buttons__ : Object for buttons { 'name' : function () { }, 'name2' : function () { } }
 * __allowReopen__ : Allow widget to reopen, default is true.
+* __useModal__ : Use modal styleing (fade out background), default: true
+* __forceInput__ : Force the user to choose a button (popup mode), clicking outside will not close dialog, default: true
 * __useDialogForceTrue__ : Boolean *Always* use Dialog Window, regardless of screen size
 * __useDialogForceFalse__ : Boolean *Never* use Dialog Window, regardless of screen size
 
-_To disable the element, use the standard disabled='disabled' in your markup._
+_Note: forceInput + useModal is the rough equivalent to modal: true in ui.dialog_

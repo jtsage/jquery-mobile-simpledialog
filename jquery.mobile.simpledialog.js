@@ -17,6 +17,8 @@
 		prompt: 'Are you sure?',
 		mode: 'bool', // or 'string'
 		allowReopen: true,
+		useModal: true,
+		forceInput: true,
 		
 		useDialogForceTrue: false,
 		useDialogForceFalse: false,
@@ -47,15 +49,19 @@
 		if ( !o.disabled ) {
 			if ( ( docWinWidth > 400 && !o.useDialogForceTrue ) || o.useDialogForceFalse ) {
 				self.options.useDialog = false;
-				self.screen.removeClass('ui-simpledialog-hidden');
+				if ( self.options.useModal ) {
+					self.screen.fadeIn('slow');
+				} else {
+					self.screen.removeClass('ui-simpledialog-hidden');
+				}
+				self.pickerContent.addClass('ui-overlay-shadow');
 				self.pickerHeader.show();
-				self.pickerContent.css({'position': 'absolute', 'top': pickWinTop, 'left': pickWinLeft}).addClass('in').removeClass('ui-simpledialog-hidden');
+				self.pickerContent.css({'position': 'absolute', 'top': pickWinTop, 'left': pickWinLeft}).addClass('ui-overlay-shadow in').removeClass('ui-simpledialog-hidden');
 			} else {
 				self.options.useDialog = true;
 				self.pickPageContent.append(self.pickerContent);
 				self.pickerHeader.hide();
-				self.pickerContent.css({'top': 'auto', 'left': 'auto', 'marginLeft': 'auto', 'marginRight': 'auto'});
-				self.pickerContent.removeClass('ui-simpledialog-hidden');
+				self.pickerContent.removeClass('ui-overlay-shadow ui-simpledialog-hidden').css({'top': 'auto', 'left': 'auto', 'marginLeft': 'auto', 'marginRight': 'auto'});
 				$.mobile.changePage(self.pickPage, 'pop', false, false);
 			}
 		}
@@ -65,10 +71,15 @@
 		
 		if ( self.options.useDialog ) {
 			$.mobile.changePage([self.pickPage,self.thisPage], 'pop', true, false);
-		} else {
-			self.screen.addClass('ui-simpledialog-hidden');
-			self.pickerContent.addClass('ui-simpledialog-hidden').removeClass('in');
+			self.pickerContent.addClass('ui-simpledialog-hidden').removeAttr('style').css('zIndex', self.options.zindex);
 			self.thisPage.append(self.pickerContent);
+		} else {
+			if ( self.options.useModal ) {
+				self.screen.fadeOut('slow');
+			} else {
+				self.screen.addClass('ui-simpledialog-hidden');
+			}
+			self.pickerContent.addClass('ui-simpledialog-hidden').removeClass('in').removeAttr('style').css('zIndex', self.options.zindex);
 		}
 	},
 	_create: function(){
@@ -84,7 +95,7 @@
 		} else { 
 				
 			var thisPage = $('.ui-page-active'),
-				pickPage = $("<div data-role='dialog' data-theme='" + o.pickPageTheme + "' >" +
+				pickPage = $("<div data-role='dialog' class='ui-simpledialog-dialog' data-theme='" + o.pickPageTheme + "' >" +
 							"<div data-role='header' data-backbtn='false' data-theme='a'>" +
 								"<div class='ui-title'>"+o.prompt+"</div>"+
 							"</div>"+
@@ -153,9 +164,15 @@
 			.css({'z-index': o.zindex-1})
 			.appendTo(self.thisPage)
 			.bind("click", function(event){
-				self.close();
+				if ( !o.forceInput ) {
+					self.close();
+				}
 				event.preventDefault();
 			});
+			
+		if ( o.useModal ) {
+			screen.addClass('ui-simpledialog-screen-modal');
+		}
 			
 		$.extend(self, {
 			pickerContent: pickerContent,
