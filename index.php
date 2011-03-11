@@ -73,10 +73,40 @@
 					}
 				})
 			});
+			
+			//This is how the form works:
+			
+			$('select').live('change', function(e) { // BEGIN : Add Dropdown Option
+				var self = this;
+		
+				$(self+':selected:not([data-placeholder])').each(function(){
+					if ( $(this).attr('data-addoption') ) {
+						$(self).simpledialog({
+							'mode' : 'string',
+							'prompt' : 'Add New Option',
+							'useDialogForceFalse' : true,
+							'buttons' : {
+								'Yes, Add' : function () { 
+									thisopt = $(self).attr('data-string');
+									$('<option value="'+thisopt+'" selected="selected">'+thisopt+'</option>').appendTo($(self));
+									$(self).selectmenu('refresh', true);
+									return true; },
+								'Cancel' : function () { $(self).selectmenu('open'); }
+							}
+						});
+					}
+				});
+			}); // END : Add Dropdown Option
+			
 		</script>
 		<a href='#' id='diag1' data-role='button'>Boolean Dialog</a>	
 		<a href='#' id='diag2' data-role='button'>String Dialog</a>	
 		<a href='#' id='diag3' data-role='button'>One-Shot Boolean Dialog</a>
+		<br />
+		Why I wrote the string method...
+		<form method='get' action='post'>
+		<div data-role='fieldcontain'><label for='vendor'>Vendor</label><select name='vendor' id='vendor' ><option data-placeholder='true'>Choose one...</option><option data-addoption='true' value='0'>Add New...</option><option value='Example Vendor'>Example Vendor</option><option value='Another Example Vendor'>Another Example Vendor</option></select></div> 
+		</form>
 		<div>
 		<?php
 		include_once "../markdown.php";
