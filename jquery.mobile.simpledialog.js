@@ -1,5 +1,5 @@
 /*
- * jQuery Mobile Framework : plugin to provide an android-like datepicker.
+ * jQuery Mobile Framework : plugin to provide a simple popup (modal) or jQMdialog (page) Dialog widget.
  * Copyright (c) JTSage
  * CC 3.0 Attribution.  May be relicensed without permission/notifcation.
  * 
@@ -24,19 +24,19 @@
 		useDialogForceFalse: false,
 		useDialog: false,
 		isInit: false,
-		sawOnce: false,
+		sawOnce: false
 	},
 	open: function() {
 		var self = this,
 			o = this.options,
-			docWinWidth = $(document).width();
-			docWinHeightOffset = $(window).scrollTop();
-			docWinHeight = $(window).height();
+			docWinWidth = $(document).width(),
+			docWinHeightOffset = $(window).scrollTop(),
+			docWinHeight = $(window).height(),
 			pickWinHeight = self.pickerContent.outerHeight(),
 			pickWinWidth = self.pickerContent.innerWidth(),
 			
 			pickWinTop = docWinHeightOffset + ( docWinHeight / 2 )- ( pickWinHeight / 2),
-			pickWinLeft = ( docWinWidth / 2) - ( pickWinWidth / 2);
+			pickWinLeft = ( docWinWidth / 2) - ( pickWinWidth / 2),
 			windowWidth = $(document).width();
 					
 		if ( (pickWinHeight + pickWinTop) > $(document).height() ) {
@@ -117,7 +117,7 @@
 				pickPageClose: pickPageClose,
 				pickPageContent: pickPageContent,
 				screen: screen,
-				caller: caller,
+				caller: caller
 			});
 			
 			self._buildPage();
@@ -134,11 +134,12 @@
 	_buildPage: function () {
 		var self = this,
 			o = self.options,
+			pickerInput,
 			pickerContent = $("<div>", { "class": 'ui-simpledialog-container ui-overlay-shadow ui-corner-all ui-simpledialog-hidden pop ui-body-'+o.pickPageTheme} ).css('zIndex', o.zindex),
 			pickerHeader = $("<div class='ui-simpledialog-header'><h4>"+o.prompt+"</h4></div>").appendTo(pickerContent).find("h4");
 			
 		if ( o.mode == 'string' ) {
-			var pickerInput = $("<div class='ui-simpledialog-controls'><input class='ui-simpledialog-input ui-input-text ui-shadow-inset ui-corner-all ui-body-"+o.pickPageInputTheme+"' type='text' name='pickin' /></div>").appendTo(pickerContent);
+			pickerInput = $("<div class='ui-simpledialog-controls'><input class='ui-simpledialog-input ui-input-text ui-shadow-inset ui-corner-all ui-body-"+o.pickPageInputTheme+"' type='text' name='pickin' /></div>").appendTo(pickerContent);
 		}
 		
 		var pickerChoice = $("<div>", { "class":'ui-simpledialog-controls' }).appendTo(pickerContent);
