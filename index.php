@@ -23,15 +23,21 @@
 					'mode' : 'bool',
 					'prompt' : 'Pick One!',
 					'buttons' : {
-						'Yes': function () { 
-							$('#diag1').find('.ui-btn-text').text(
-								$('#diag1').find('.ui-btn-text').text() + ' -- YES!'
-							);
+						'Yes': {
+							click: function () { 
+								$('#diag1').find('.ui-btn-text').text(
+									$('#diag1').find('.ui-btn-text').text() + ' -- YES!'
+								);
+							}
 						},
-						'No': function () { 
-							$('#diag1').find('.ui-btn-text').text(
-								$('#diag1').find('.ui-btn-text').text() + ' -- NO!'
-							);
+						'No': {
+							click: function () { 
+								$('#diag1').find('.ui-btn-text').text(
+									$('#diag1').find('.ui-btn-text').text() + ' -- NO!'
+								);
+							},
+							icon: "delete",
+							theme: "c"
 						}
 					}
 				})
@@ -42,14 +48,20 @@
 					'mode' : 'string',
 					'prompt' : 'What is your name?',
 					'buttons' : {
-						'OK': function () { 
-							$('#diag2').find('.ui-btn-text').text(
-								$('#diag2').find('.ui-btn-text').text() + 
-								' -- ' + 
-								$('#diag2').attr('data-string')
-							);
+						'OK': {
+							click: function () { 
+								$('#diag2').find('.ui-btn-text').text(
+									$('#diag2').find('.ui-btn-text').text() + 
+									' -- ' + 
+									$('#diag2').attr('data-string')
+								);
+							}
 						},
-						'Cancel': function () { console.log(this); }
+						'Cancel': {
+							click: function () { console.log(this); },
+							icon: "delete",
+							theme: "c"
+						}
 					}
 				})
 			});
@@ -60,15 +72,19 @@
 					'prompt': 'Choose Wisely',
 					'allowReopen': false,
 					'buttons' : {
-						'Yes': function () {
-							$('#diag3').find('.ui-btn-text').text(
-								$('#diag3').find('.ui-btn-text').text() + ' -- YES!'
-							);
+						'Yes': {
+							click: function () {
+								$('#diag3').find('.ui-btn-text').text(
+									$('#diag3').find('.ui-btn-text').text() + ' -- YES!'
+								);
+							}
 						},
-						'No': function () {
-							$('#diag3').find('.ui-btn-text').text(
-								$('#diag3').find('.ui-btn-text').text()+' -- NO!'
-							);
+						'No': {
+							click: function () {
+								$('#diag3').find('.ui-btn-text').text(
+									$('#diag3').find('.ui-btn-text').text()+' -- NO!'
+								); },
+							icon: "delete"
 						}
 					}
 				})
@@ -86,12 +102,17 @@
 							'prompt' : 'Add New Option',
 							'useDialogForceFalse' : true,
 							'buttons' : {
-								'Yes, Add' : function () { 
-									thisopt = $(self).attr('data-string');
-									$('<option value="'+thisopt+'" selected="selected">'+thisopt+'</option>').appendTo($(self));
-									$(self).selectmenu('refresh', true);
-									return true; },
-								'Cancel' : function () { $(self).selectmenu('open'); }
+								'Yes, Add' : {
+									click: function () { 
+										thisopt = $(self).attr('data-string');
+										$('<option value="'+thisopt+'" selected="selected">'+thisopt+'</option>').appendTo($(self));
+										$(self).selectmenu('refresh', true);
+										return true; }
+								},
+								'Cancel' : {
+									click: function () { $(self).selectmenu('open'); },
+									icon: "delete"
+								}
 							}
 						});
 					}

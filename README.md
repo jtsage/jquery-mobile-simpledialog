@@ -36,4 +36,9 @@ _These can be passed to the dialog via an object set at the data-options attribu
 * __useDialogForceTrue__ : Boolean *Always* use Dialog Window, regardless of screen size
 * __useDialogForceFalse__ : Boolean *Never* use Dialog Window, regardless of screen size
 
+### Button Customization:
+* __click__ : Function to perform on click
+* __icon__ : Icon for button
+* __theme__: Theme for button
+
 _Note: forceInput + useModal is the rough equivalent to modal: true in ui.dialog_
