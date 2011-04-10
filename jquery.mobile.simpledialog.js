@@ -146,11 +146,16 @@
 			
 		$.each(o.buttons, function(name, props) {
 			props = $.isFunction( props ) ?
-				{ click: props, text: name } : props;
-				
+				{ click: props } : props;
+			props = $.extend({
+                text: name,
+                theme: o.pickPageButtonTheme,
+                icon: 'check',
+                iconpos: 'left'
+            }, props);
 			$("<a href='#'>"+name+"</a>")
 				.appendTo(pickerChoice)
-				.buttonMarkup({theme: o.pickPageButtonTheme, icon: 'check', iconpos: 'left', corners:true, shadow:true})
+				.buttonMarkup({theme: props.theme, icon: props.icon, iconpos: props.iconpos, corners: true, shadow: true})
 				.unbind("click")
 				.click(function() {
 					if ( o.mode == 'string' ) { self.caller.attr('data-string', pickerInput.find('input').val()); }
