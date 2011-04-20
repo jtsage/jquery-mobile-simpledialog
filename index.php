@@ -69,7 +69,7 @@
 			$('#diag3').live('click', function() {
 				$(this).simpledialog({
 					'mode' : 'bool',
-					'prompt': 'Choose Wisely',
+					'prompt': false,
 					'allowReopen': false,
 					'buttons' : {
 						'Yes': {
@@ -122,7 +122,7 @@
 		</script>
 		<a href='#' id='diag1' data-role='button'>Boolean Dialog</a>	
 		<a href='#' id='diag2' data-role='button'>String Dialog</a>	
-		<a href='#' id='diag3' data-role='button'>One-Shot Boolean Dialog</a>
+		<a href='#' id='diag3' data-role='button'>One-Shot Boolean Dialog, No Prompt Text</a>
 		<br />
 		Why I wrote the string method...
 		<form method='get' action='post'>

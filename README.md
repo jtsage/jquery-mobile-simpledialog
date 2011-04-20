@@ -28,7 +28,7 @@ _These can be passed to the dialog via an object set at the data-options attribu
 
 ### Customization:
 * __mode__ : Mode of operation - either button (bool) or text input (string)
-* __prompt__ : Prompt for dialog
+* __prompt__ : Prompt for dialog, or false to suppress display.
 * __buttons__ : Object for buttons { 'name' : function () { }, 'name2' : function () { } }
 * __allowReopen__ : Allow widget to reopen, default is true.
 * __useModal__ : Use modal styleing (fade out background), default: true

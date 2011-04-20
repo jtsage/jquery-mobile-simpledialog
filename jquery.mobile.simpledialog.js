@@ -14,7 +14,7 @@
 		disabled: false,
 		zindex: '500',
 		
-		prompt: 'Are you sure?',
+		prompt: 'Are you sure?', // or false.
 		mode: 'bool', // or 'string'
 		allowReopen: true,
 		useModal: true,
@@ -136,8 +136,14 @@
 			o = self.options,
 			pickerInput,
 			pickerContent = $("<div>", { "class": 'ui-simpledialog-container ui-overlay-shadow ui-corner-all ui-simpledialog-hidden pop ui-body-'+o.pickPageTheme} ).css('zIndex', o.zindex),
-			pickerHeader = $("<div class='ui-simpledialog-header'><h4>"+o.prompt+"</h4></div>").appendTo(pickerContent).find("h4");
+			pickerHeader = $("<div class='ui-simpledialog-header'><h4></h4></div>").appendTo(pickerContent).find("h4");
 			
+		if ( o.prompt !== false ) {
+			pickerHeader.html(o.prompt);
+		} else {
+			pickerHeader.parent().html();
+		}
+		
 		if ( o.mode == 'string' ) {
 			pickerInput = $("<div class='ui-simpledialog-controls'><input class='ui-simpledialog-input ui-input-text ui-shadow-inset ui-corner-all ui-body-"+o.pickPageInputTheme+"' type='text' name='pickin' /></div>").appendTo(pickerContent);
 		}
