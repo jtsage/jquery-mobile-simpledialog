@@ -112,6 +112,10 @@
 					return false;
 				});
 			
+			if ( o.prompt === false ) {
+				pickPage.find('.ui-header').find('.ui-title').html("&nbsp;");
+			}
+			
 			$.extend(self, {
 				pickPage: pickPage,
 				thisPage: thisPage,
