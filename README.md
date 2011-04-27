@@ -15,6 +15,40 @@ SimpleDialog Features
 
 * Options can be configured via data-options attribute
 
+Suggested Use
+-------------
+The use of SimpleDialog is just that, very simple.  Assuming a trigger of a usual button, i.e.:
+
+	<a href='#' id='diag1' data-role='button'>Simple Dialog, String Style</a>
+	
+A typical SimpleDialog code block would look like:
+
+	$('#diag1').live('click', function() {
+		$(this).simpledialog({
+			'mode' : 'string',
+			'prompt' : 'Type Something!',
+			'buttons' : {
+				'Done, Submit': {
+					click: function () { 
+						alert('You Wrote: ' + $('#diag1').attr('data-string'));
+					}
+				},
+				'Cancel': {
+					click: function () { return true; },
+					icon: "delete",
+					theme: "c"
+				}
+			}
+		})
+	});
+
+#### Global Option Overrides:
+	
+	// AFTER loading jQM
+	jQuery.extend(jQuery.mobile.simpledialog.prototype.options, {
+		'useDialogForceTrue': true
+	});
+	
 Available Options
 -----------------
 
