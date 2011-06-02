@@ -24,7 +24,10 @@
 		useDialogForceFalse: false,
 		useDialog: false,
 		isInit: false,
-		sawOnce: false
+		sawOnce: false,
+		enterToTrigger: 0,
+		escToTrigger: 1,
+		butObj: new Array()
 	},
 	open: function() {
 		var self = this,
@@ -36,20 +39,17 @@
 			pickWinWidth = self.pickerContent.innerWidth(),
 			
 			pickWinTop = docWinHeightOffset + ( docWinHeight / 2 )- ( pickWinHeight / 2),
-			pickWinLeft = ( docWinWidth / 2) - ( pickWinWidth / 2),
-			windowWidth = $(document).width();
+			pickWinLeft = ( docWinWidth / 2) - ( pickWinWidth / 2);
 					
 		if ( (pickWinHeight + pickWinTop) > $(document).height() ) {
 			pickWinTop = $(document).height() - (pickWinHeight + 2);
 		}
-		if ( pickWinTop < 45 ) { // Fix for popup ending up under header
-			pickWinTop = 45;
-		}
+		if ( pickWinTop < 45 ) { pickWinTop = 45; }
 		
 		if ( !o.disabled ) {
 			if ( ( docWinWidth > 400 && !o.useDialogForceTrue ) || o.useDialogForceFalse ) {
-				self.options.useDialog = false;
-				if ( self.options.useModal ) {
+				o.useDialog = false;
+				if ( o.useModal ) {
 					self.screen.fadeIn('slow');
 				} else {
 					self.screen.removeClass('ui-simpledialog-hidden');
@@ -58,7 +58,7 @@
 				self.pickerHeader.show();
 				self.pickerContent.css({'position': 'absolute', 'top': pickWinTop, 'left': pickWinLeft}).addClass('ui-overlay-shadow in').removeClass('ui-simpledialog-hidden');
 			} else {
-				self.options.useDialog = true;
+				o.useDialog = true;
 				self.pickPageContent.append(self.pickerContent);
 				self.pickerHeader.hide();
 				self.pickerContent.removeClass('ui-overlay-shadow ui-simpledialog-hidden').css({'top': 'auto', 'left': 'auto', 'marginLeft': 'auto', 'marginRight': 'auto'});
@@ -71,7 +71,6 @@
 		
 		if ( self.options.useDialog ) {
 			$(self.pickPage).dialog('close');
-			//$.mobile.changePage([self.pickPage,self.thisPage], 'pop', true, false);
 			self.pickerContent.addClass('ui-simpledialog-hidden').removeAttr('style').css('zIndex', self.options.zindex);
 			self.thisPage.append(self.pickerContent);
 		} else {
@@ -84,17 +83,13 @@
 		}
 	},
 	_create: function(){
-
 		var self = this,
 			o = $.extend(this.options, this.element.data('options')),
 			caller = this.element;
 		
-		if ( o.isInit ) {
-			if ( o.allowReopen ) {
-				self.open(); 
-			}
+		if ( o.isInit &&  o.allowReopen ) { 
+			self.open(); 
 		} else { 
-				
 			var thisPage = $('.ui-page-active'),
 				pickPage = $("<div data-role='dialog' class='ui-simpledialog-dialog' data-theme='" + o.pickPageTheme + "' >" +
 							"<div data-role='header' data-backbtn='false' data-theme='a'>" +
@@ -104,13 +99,14 @@
 						"</div>")
 						.appendTo( $.mobile.pageContainer )
 						.page().css('minHeight', '0px').css('zIndex', o.zindex).addClass('pop'),
-				pickPageContent = pickPage.find( ".ui-content" ),
-				pickPageClose = pickPage.find( ".ui-header a").click(function(e) {
-					e.preventDefault();
-					e.stopImmediatePropagation();
-					self.close();
-					return false;
-				});
+				pickPageContent = pickPage.find( ".ui-content" );
+			
+			pickPage.find( ".ui-header a").click(function(e) {
+				e.preventDefault();
+				e.stopImmediatePropagation();
+				self.close();
+				return false;
+			});
 			
 			if ( o.prompt === false ) {
 				pickPage.find('.ui-header').find('.ui-title').html("&nbsp;");
@@ -119,7 +115,6 @@
 			$.extend(self, {
 				pickPage: pickPage,
 				thisPage: thisPage,
-				pickPageClose: pickPageClose,
 				pickPageContent: pickPageContent,
 				screen: screen,
 				caller: caller
@@ -128,7 +123,6 @@
 			self._buildPage();
 			self.options.isInit = true;
 		}
-		//self.open();
 	},
 	_init: function() {
 		if ( !this.options.sawOnce || this.options.allowReopen ) {
@@ -140,6 +134,8 @@
 		var self = this,
 			o = self.options,
 			pickerInput,
+			pickerChoice,
+			screen,
 			pickerContent = $("<div>", { "class": 'ui-simpledialog-container ui-overlay-shadow ui-corner-all ui-simpledialog-hidden pop ui-body-'+o.pickPageTheme} ).css('zIndex', o.zindex),
 			pickerHeader = $("<div class='ui-simpledialog-header'><h4></h4></div>").appendTo(pickerContent).find("h4");
 			
@@ -150,21 +146,29 @@
 		}
 		
 		if ( o.mode == 'string' ) {
-			pickerInput = $("<div class='ui-simpledialog-controls'><input class='ui-simpledialog-input ui-input-text ui-shadow-inset ui-corner-all ui-body-"+o.pickPageInputTheme+"' type='text' name='pickin' /></div>").appendTo(pickerContent);
+			pickerInput = $("<div class='ui-simpledialog-controls'><input class='ui-simpledialog-input ui-input-text ui-shadow-inset ui-corner-all ui-body-"+o.pickPageInputTheme+"' type='text' name='pickin' /></div>")
+				.bind('keyup', function(event) {
+					if ( event.keyCode == '13' && o.enterToTrigger !== false )  {
+						o.butObj[o.enterToTrigger].trigger('click');
+					}
+					if ( event.keyCode == '27' && o.escToTrigger !== false )  {
+						o.butObj[o.escToTrigger].trigger('click');
+					}
+				})
+				.appendTo(pickerContent);
 		}
 		
-		var pickerChoice = $("<div>", { "class":'ui-simpledialog-controls' }).appendTo(pickerContent);
+		pickerChoice = $("<div>", { "class":'ui-simpledialog-controls' }).appendTo(pickerContent);
 			
 		$.each(o.buttons, function(name, props) {
-			props = $.isFunction( props ) ?
-				{ click: props } : props;
+			props = $.isFunction( props ) ?	{ click: props } : props;
 			props = $.extend({
                 text: name,
                 theme: o.pickPageButtonTheme,
                 icon: 'check',
                 iconpos: 'left'
             }, props);
-			$("<a href='#'>"+name+"</a>")
+			o.butObj.push($("<a href='#'>"+name+"</a>")
 				.appendTo(pickerChoice)
 				.buttonMarkup({theme: props.theme, icon: props.icon, iconpos: props.iconpos, corners: true, shadow: true})
 				.unbind("click")
@@ -172,12 +176,13 @@
 					if ( o.mode == 'string' ) { self.caller.attr('data-string', pickerInput.find('input').val()); }
 					props.click.apply(self.element[0], arguments);
 					self.close();
-				});
+				})
+			);
 		});
 		
 		pickerContent.appendTo(self.thisPage);
 		
-		var screen = $("<div>", {'class':'ui-simpledialog-screen ui-simpledialog-hidden'})
+		screen = $("<div>", {'class':'ui-simpledialog-screen ui-simpledialog-hidden'})
 			.css({'z-index': o.zindex-1})
 			.appendTo(self.thisPage)
 			.bind("click", function(event){
@@ -187,9 +192,7 @@
 				event.preventDefault();
 			});
 			
-		if ( o.useModal ) {
-			screen.addClass('ui-simpledialog-screen-modal');
-		}
+		if ( o.useModal ) { screen.addClass('ui-simpledialog-screen-modal'); }
 			
 		$.extend(self, {
 			pickerContent: pickerContent,
@@ -197,11 +200,9 @@
 			screen: screen
 		});
 	},
-	    
 	disable: function(){
 		this.options.disabled = true;
 	},
-	
 	enable: function(){
 		this.options.disabled = false;
 	}
