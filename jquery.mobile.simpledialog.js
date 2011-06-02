@@ -27,7 +27,7 @@
 		sawOnce: false,
 		enterToTrigger: 0,
 		escToTrigger: 1,
-		butObj: new Array()
+		butObj: []
 	},
 	open: function() {
 		var self = this,
@@ -81,6 +81,7 @@
 			}
 			self.pickerContent.addClass('ui-simpledialog-hidden').removeClass('in').removeAttr('style').css('zIndex', self.options.zindex);
 		}
+		self.caller.removeClass('ui-btn-active');
 	},
 	_create: function(){
 		var self = this,
@@ -145,13 +146,13 @@
 			pickerHeader.parent().html();
 		}
 		
-		if ( o.mode == 'string' ) {
+		if ( o.mode === 'string' ) {
 			pickerInput = $("<div class='ui-simpledialog-controls'><input class='ui-simpledialog-input ui-input-text ui-shadow-inset ui-corner-all ui-body-"+o.pickPageInputTheme+"' type='text' name='pickin' /></div>")
 				.bind('keyup', function(event) {
-					if ( event.keyCode == '13' && o.enterToTrigger !== false )  {
+					if ( event.keyCode === 13 && o.enterToTrigger !== false )  {
 						o.butObj[o.enterToTrigger].trigger('click');
 					}
-					if ( event.keyCode == '27' && o.escToTrigger !== false )  {
+					if ( event.keyCode === 27 && o.escToTrigger !== false )  {
 						o.butObj[o.escToTrigger].trigger('click');
 					}
 				})
@@ -173,7 +174,7 @@
 				.buttonMarkup({theme: props.theme, icon: props.icon, iconpos: props.iconpos, corners: true, shadow: true})
 				.unbind("click")
 				.click(function() {
-					if ( o.mode == 'string' ) { self.caller.attr('data-string', pickerInput.find('input').val()); }
+					if ( o.mode === 'string' ) { self.caller.attr('data-string', pickerInput.find('input').val()); }
 					props.click.apply(self.element[0], arguments);
 					self.close();
 				})
