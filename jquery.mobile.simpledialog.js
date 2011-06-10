@@ -50,6 +50,7 @@
 			self.pickerHeader.html(o.prompt);
 			self.pickPage.find('.ui-header').find('.ui-title').text(o.prompt);
 		}
+		self.pickerContent.find('.ui-btn-active').removeClass('ui-btn-active');
 		
 		if ( !o.disabled ) {
 			if ( ( docWinWidth > 400 && !o.useDialogForceTrue ) || o.useDialogForceFalse ) {
@@ -73,7 +74,7 @@
 	},
 	close: function() {
 		var self = this;
-		
+
 		if ( self.options.useDialog ) {
 			$(self.pickPage).dialog('close');
 			self.pickerContent.addClass('ui-simpledialog-hidden').removeAttr('style').css('zIndex', self.options.zindex);
