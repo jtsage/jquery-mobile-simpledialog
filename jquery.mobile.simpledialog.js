@@ -46,6 +46,11 @@
 		}
 		if ( pickWinTop < 45 ) { pickWinTop = 45; }
 		
+		if ( o.prompt !== false ) {
+			self.pickerHeader.html(o.prompt);
+			self.pickPage.find('.ui-header').find('.ui-title').text(o.prompt);
+		}
+		
 		if ( !o.disabled ) {
 			if ( ( docWinWidth > 400 && !o.useDialogForceTrue ) || o.useDialogForceFalse ) {
 				o.useDialog = false;
@@ -101,6 +106,7 @@
 						.appendTo( $.mobile.pageContainer )
 						.page().css('minHeight', '0px').css('zIndex', o.zindex).addClass('pop'),
 				pickPageContent = pickPage.find( ".ui-content" );
+				
 			
 			pickPage.find( ".ui-header a").click(function(e) {
 				e.preventDefault();
