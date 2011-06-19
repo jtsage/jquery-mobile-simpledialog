@@ -179,8 +179,8 @@
 			o.butObj.push($("<a href='#'>"+name+"</a>")
 				.appendTo(pickerChoice)
 				.buttonMarkup({theme: props.theme, icon: props.icon, iconpos: props.iconpos, corners: true, shadow: true})
-				.unbind("click")
-				.click(function() {
+				.unbind("vclick").unbind("click")
+				.bind("vclick", function() {
 					if ( o.mode === 'string' ) { self.caller.attr('data-string', pickerInput.find('input').val()); }
 					props.click.apply(self.element[0], arguments);
 					self.close();
