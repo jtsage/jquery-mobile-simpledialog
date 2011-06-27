@@ -4,10 +4,10 @@
 <head> 
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
 	<title>jQueryMobile - SimpleDialog Demo</title>
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.css" />
 	<link type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.css" rel="stylesheet" /> 
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script> 
-	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script> 
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.js"></script>
 	
 </head>
@@ -22,7 +22,7 @@
 			<div data-role="collapsible">
 				<h3>Boolean Dialog (src line: 23)</h3>
 				<script type="text/javascript">
-					$('#diag1').live('click', function() {
+					$('#diag1').live('vclick', function() {
 						$(this).simpledialog({
 							'mode' : 'bool',
 							'prompt' : 'Pick One!',
@@ -52,7 +52,7 @@
 			<div data-role="collapsible">
 				<h3>String Dialog (src line: 53)</h3>
 				<script type="text/javascript">
-					$('#diag2').live('click', function() {
+					$('#diag2').live('vclick', function() {
 						$(this).simpledialog({
 							'mode' : 'string',
 							'prompt' : 'What is your name?',
@@ -84,7 +84,7 @@
 				<h3>One-Shot Boolean Dialog (src line: 83)</h3>
 				<p>With no prompt text</p>
 				<script type="text/javascript">
-					$('#diag3').live('click', function() {
+					$('#diag3').live('vclick', function() {
 						$(this).simpledialog({
 							'mode' : 'bool',
 							'prompt': false,
