@@ -19,6 +19,7 @@
 		allowReopen: true,
 		useModal: true,
 		forceInput: true,
+		isOpen: false,
 		
 		useDialogForceTrue: false,
 		useDialogForceFalse: false,
@@ -30,6 +31,8 @@
 		butObj: []
 	},
 	open: function() {
+		if ( this.options.isOpen ) { return true; }
+		
 		var self = this,
 			o = this.options,
 			docWinWidth = $(document).width(),
@@ -68,8 +71,9 @@
 				self.pickPageContent.append(self.pickerContent);
 				self.pickerHeader.hide();
 				self.pickerContent.removeClass('ui-overlay-shadow ui-simpledialog-hidden').css({'top': 'auto', 'left': 'auto', 'marginLeft': 'auto', 'marginRight': 'auto'});
-				$.mobile.changePage(self.pickPage, 'pop', false, true);
+				$.mobile.changePage(self.pickPage, {'transition': 'pop'});
 			}
+			this.options.isOpen = true;
 		}
 	},
 	close: function() {
@@ -88,6 +92,7 @@
 			self.pickerContent.addClass('ui-simpledialog-hidden').removeClass('in').removeAttr('style').css('zIndex', self.options.zindex);
 		}
 		self.caller.removeClass('ui-btn-active');
+		self.options.isOpen = false;
 	},
 	_create: function(){
 		var self = this,
@@ -171,11 +176,11 @@
 		$.each(o.buttons, function(name, props) {
 			props = $.isFunction( props ) ?	{ click: props } : props;
 			props = $.extend({
-                text: name,
-                theme: o.pickPageButtonTheme,
-                icon: 'check',
-                iconpos: 'left'
-            }, props);
+				text: name,
+				theme: o.pickPageButtonTheme,
+				icon: 'check',
+				iconpos: 'left'
+			}, props);
 			o.butObj.push($("<a href='#'>"+name+"</a>")
 				.appendTo(pickerChoice)
 				.buttonMarkup({theme: props.theme, icon: props.icon, iconpos: props.iconpos, corners: true, shadow: true})
