@@ -1,0 +1,73 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>jQueryMobile - SimpleDialog Demos</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script> >
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.js"></script>
+	<script type="text/javascript" src="http://jquerymobile.com/demos/1.0b1/experiments/themeswitcher/jquery.mobile.themeswitcher.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jQM-SimpleDialog/demos/extras.js"></script>
+	
+	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
+	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
+	<script type="text/javascript">
+		$('div').live('pagecreate', function() {
+			prettyPrint()
+		});
+	</script>
+	
+</head>
+<body>
+<div data-role="page" data-theme="a" id="main"> 
+	<div data-role="header"> 
+		<h1>jQueryMobile - SimpleDialog</h1>
+	</div>
+	<div data-role="content" data-theme="c">
+		<div class="content-secondary"> 
+	
+			<div id="jqm-homeheader"> 
+				<h1 id="jqm-logo"><img src="/jQM-SimpleDialog/demos/jquery-logo-sd.png" alt="jQuery Mobile Framework :: SimpleDialog" /></h1> 
+				<p>A Popup Dialog Box for jQueryMobile 1.0 Beta1</p> 
+				
+			</div> 
+	
+			<p class="intro">SimpleDialog aims to be a replacement for javascript dialog(), written for jQM.</p> 
+			
+			<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="f"> 
+				<li data-role="list-divider">Overview</li> 
+				<li data-theme="a">Intro &amp; Features</li>
+				<li><a href="demos/config.html">Full Options Matrix</a></li>
+				<li><a href="demos/install.html">Download &amp; Use</a></li>
+				<li><a href="demos/bool.html">Boolean / Button Mode</a></li>
+				<li><a href="demos/string.html">String / Input Mode</a></li>
+			</ul> 
+			
+		</div><!--/content-primary-->	
+		
+		<div class="content-primary"> 
+			
+			<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
+				<li data-role="list-divider">Features</li>
+				<li><h3>Two operation modes</h3><p><strong>Bool :</strong> A button only display where the user can choose one option<br /><strong>String :</strong> Dialog with a text input field to get user data.</p></li>
+				<li>Pops Up "over" the screen on larger devices, falls back to the full screen dialog of jQM on small displays</li>
+				<li>Modal and forced input displays available</li>
+			</ul>
+		</div> 
+		
+	</div>
+	<div data-role="footer">
+		<div data-role="controlgroup" data-type="horizontal">
+			<a data-role="button" href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a><a data-role="button" rel='external' href="http://dev.jtsage.com/blog/">Blog</a><a data-role="button" href="mailto:jtsage+datebox@gmail.com">Contact</a><a data-role="button" href="http://jquerymobile.com/">jQueryMobile Homepage</a>
+		</div>
+	</div>
+</div>
+</html>

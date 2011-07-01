@@ -1,0 +1,80 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>jQueryMobile - SimpleDialog Demos</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script> >
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.js"></script>
+	<script type="text/javascript" src="http://jquerymobile.com/demos/1.0b1/experiments/themeswitcher/jquery.mobile.themeswitcher.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jQM-SimpleDialog/demos/extras.js"></script>
+	
+	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
+	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
+	<script type="text/javascript">
+		$('div').live('pagecreate', function() {
+			prettyPrint()
+		});
+	</script>
+	
+</head>
+<body>
+<div data-role="page" data-theme="a" id="main"> 
+	<div data-role="header"> 
+		<h1>jQueryMobile - SimpleDialog</h1>
+		<a href="../" data-icon="home" data-iconpos="notext">Home</a>
+	</div>
+	<div data-role="content" data-theme="c">
+		<h2>Configuration</h2>
+		
+		<ul data-role="listview" data-inset="true">
+			<li data-role="list-divider">Options</li>
+			<li><h3>mode</h3><p><strong>Purpose:</strong> Mode of operation<br /><strong>Default:</strong> 'bool'<br /><strong>Options:</strong> 'string', 'bool'</p></li>
+			<li><h3>prompt</h3><p><strong>Purpose:</strong> Prompt to the user<br /><strong>Default:</strong> 'Are you sure?'</p></li>
+			<li><h3>Themeing</h3><ul data-inset="true">
+				<li data-role="list-divider">Named Themes</li>
+				<li><h3>pickPageTheme</h3><p><strong>Purpose:</strong>Theme for popup window or dialog<br /><strong>Default:</strong> 'b'<br /><strong>Modes:</strong> all</p></li>
+				<li><h3>pickPageButtonTheme</h3><p><strong>Purpose:</strong>Theme for widget buttons<br /><strong>Default:</strong> 'a'<br /><strong>Modes:</strong> all</p></li>
+				<li><h3>pickPageInputTheme</h3><p><strong>Purpose:</strong>Theme for widget input elemets<br /><strong>Default:</strong> 'e'<br /><strong>Modes:</strong> all</p></li>
+				<li data-role="list-divider">Other Display Options</li>
+				<li><h3>zindex</h3><p><strong>Purpose:</strong>Z-Index for popup<br /><strong>Default:</strong> 500<br /><strong>Modes:</strong> all</p></li>
+			</ul></li>
+			<li><h3>User Interface</h3><ul data-inset="true">
+				<li><h3>useDialogForceTrue</h3><p><strong>Purpose:</strong>Boolean *Always* use Dialog Window, regardless of screen size<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> all</p></li>
+				<li><h3>useDialogForceFalse</h3><p><strong>Purpose:</strong>Boolean *Never* use Dialog Window, regardless of screen size<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> all</p></li>
+				<li><h3>useModal</h3><p><strong>Purpose:</strong>Use modal styling (background fades out) on popup<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> all</p></li>
+				<li><h3>forceInput</h3><p><strong>Purpose:</strong>Force the user to pick something, don't close on outside click<br /><strong>Default:</strong> false<br /><strong>Modes:</strong> all</p></li>
+				<li><h3>allowReopen</h3><p><strong>Purpose:</strong>Allow the dialog to reopen<br /><strong>Default:</strong> true<br /><strong>Modes:</strong> all</p></li>
+				<li><h3>enterToTrigger</h3><p><strong>Purpose:</strong>Button to trigger when enter pressed in input box<br /><strong>Default:</strong> 0<br /><strong>Modes:</strong> string</p></li>
+				<li><h3>escToTrigger</h3><p><strong>Purpose:</strong>Button to trigger when escape pressed in input box<br /><strong>Default:</strong> 1<br /><strong>Modes:</strong> string</p></li>
+			</ul></li>
+			<li><h3>Buttons</h3><ul data-inset="true">
+				<li data-role="list-divider">buttons is an object containing the following options for each button</li>
+				<li><h3>click</h3><p><strong>Purpose:</strong>Function to perform when 'vclick'ing the button<br /><strong>Default:</strong> null</li>
+				<li><h3>icon</h3><p><strong>Purpose:</strong>Icon to use on button<br /><strong>Default:</strong> 'check'</li>
+				<li><h3>theme</h3><p><strong>Purpose:</strong>Theme to use for button<br /><strong>Default:</strong> pickPageButtonTheme from above</li>
+			</ul></li>
+			<li data-role="list-divider">Working with dialogs</li>
+			<li><h3>butObj</h3><p>Contains an object of the buttons.<br /><strong>Example:</strong> $('element').data('simpledialog').options.butObj[0].trigger('vclick');</p></li>
+			<li><h3>sawOnce</h3><p>Contains a boolean that is used on forceinput.  Set to false to override and allow one more reopen.</p></li>
+			<li><h3>$('element').attr('data-string');</h3><p>Contains the string that the user typed - Note that this does absolutly no validation, do that yourself.</p></li>
+		</ul>
+				
+			
+		
+	</div>
+	<div data-role="footer">
+		<div data-role="controlgroup" data-type="horizontal">
+			<a data-role="button" href="https://github.com/jtsage/jquery-mobile-datebox">GitHub Source</a><a data-role="button" rel='external' href="http://dev.jtsage.com/blog/">Blog</a><a data-role="button" href="mailto:jtsage+datebox@gmail.com">Contact</a><a data-role="button" href="http://jquerymobile.com/">jQueryMobile Homepage</a>
+		</div>
+	</div>
+</div>
+</html>
