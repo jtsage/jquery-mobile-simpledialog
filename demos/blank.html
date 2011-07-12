@@ -47,68 +47,49 @@
 				<li><a href="../">Intro &amp; Features</a></li>
 				<li><a href="config.html">Full Options Matrix</a></li>
 				<li><a href="install.html">Download &amp; Use</a></li>
-				<li data-theme="a">Boolean / Button Mode</li>
+				<li><a href="bool.html">Boolean / Button Mode</li>
 				<li><a href="string.html">String / Input Mode</a></li>
-				<li><a href="blank.html">Raw HTML Mode</a></li>
+				<li data-theme="a">Raw HTML Mode</li>
 			</ul> 
 			
 		</div><!--/content-primary-->	
 		
 		<div class="content-primary"> 
-			<h2>Button Input Mode</h2>
-			<p>This shows the simplest form of bool mode.  You can add as many buttons as you want.</p>
-			<p>You clicked: <span id="simpleboolout"></span></p>
+			
+			<h2>Button to open custom HTML dialog</h2>
+			<p>note you are size limited to about 280px wide</p>
 			<script type="text/javascript"> 
-				$('#simplebool').live('vclick', function() {
+				$('#simpleraw').live('vclick', function() {
 					$(this).simpledialog({
-						'mode' : 'bool',
-						'prompt' : 'How about it?',
-						'buttons' : {
-							'OK': {
-								click: function () { 
-									$('#simpleboolout').text('OK');
-								}
-							},
-							'Cancel': {
-								click: function () { 
-									$('#simpleboolout').text('Cancel');
-								},
-								icon: "delete",
-								theme: "c"
-							}
-						}
-					})
+						'mode' : 'blank',
+						'prompt': false,
+						'forceInput': false,
+						'fullHTML' : 
+							"<ul data-role='listview'><li>Some</li><li>List</li><li>Items</li></ul><a data-role='button' href='#' id='simpleclose'>Close</a>"
+						})
+					});
+				$('#simpleclose').live('vclick', function() {
+					$('#simpleraw').simpledialog('close');
 				});
 			</script>
-			<a href="#" id="simplebool" data-role="button">Open Dialog</a>
+			<a href="#" id="simpleraw" data-role="button">Open Dialog</a>
 			<strong>HTML</strong><pre class="prettyprint">
-&lt;p&gt;You have entered: &lt;span id="dialogoutput"&gt;&lt;/span&gt;&lt;/p&gt;
-
 &lt;a href="#" id="dialoglink" data-role="button"&gt;Open Dialog&lt;/a&gt;</pre>
 
 			<strong>jQuery</strong><pre class="prettyprint">
 $('#dialoglink').live('vclick', function() {
-  $(this).simpledialog({
-    'mode' : 'bool',
-    'prompt' : 'How about it?',
-    'buttons' : {
-      'OK': {
-        click: function () {
-          $('#dialogoutput').text('OK');
-        }
-      },
-      'Cancel': {
-        click: function () {
-          $('#dialogoutput').text('Cancel');
-        },
-        icon: "delete",
-        theme: "c"
-      }
-    }
-  })
-})</pre>
-			
-		</div> 
+    $(this).simpledialog({
+        'mode' : 'blank',
+        'prompt': false,
+        'forceInput': false,
+        'fullHTML' : 
+            "&lt;ul data-role='listview'&gt;&lt;li&gt;Some&lt;/li&gt;&lt;li&gt;List&lt;/li&gt;&lt;li&gt;Items&lt;/li&gt;&lt;/ul&gt;&lt;a data-role='button' href='#' id='simpleclose'&gt;Close&lt;/a&gt;"
+    })
+});
+$('#simpleclose').live('vclick', function() {
+	$('#dialoglink').simpledialog('close');
+});</pre>
+			</div>
 		
 	</div>
 	<div data-role="footer">
