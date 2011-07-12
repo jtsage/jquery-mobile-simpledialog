@@ -20,6 +20,8 @@
 		useModal: true,
 		forceInput: true,
 		isOpen: false,
+		blankMode: false,
+		fullHTML: null,
 		
 		useDialogForceTrue: false,
 		useDialogForceFalse: false,
@@ -28,7 +30,8 @@
 		sawOnce: false,
 		enterToTrigger: 0,
 		escToTrigger: 1,
-		butObj: []
+		butObj: [],
+		debug: false
 	},
 	open: function() {
 		if ( this.options.isOpen ) { return true; }
@@ -63,14 +66,14 @@
 				} else {
 					self.screen.removeClass('ui-simpledialog-hidden');
 				}
-				self.pickerContent.addClass('ui-overlay-shadow');
+				self.pickerContent.addClass('ui-overlay-shadow').css('zIndex', self.options.zindex);
 				self.pickerHeader.show();
 				self.pickerContent.css({'position': 'absolute', 'top': pickWinTop, 'left': pickWinLeft}).addClass('ui-overlay-shadow in').removeClass('ui-simpledialog-hidden');
 			} else {
 				o.useDialog = true;
 				self.pickPageContent.append(self.pickerContent);
 				self.pickerHeader.hide();
-				self.pickerContent.removeClass('ui-overlay-shadow ui-simpledialog-hidden').css({'top': 'auto', 'left': 'auto', 'marginLeft': 'auto', 'marginRight': 'auto'});
+				self.pickerContent.removeClass('ui-overlay-shadow ui-simpledialog-hidden').css({'top': 'auto', 'left': 'auto', 'marginLeft': 'auto', 'marginRight': 'auto'}).css('zIndex', self.options.zindex);
 				$.mobile.changePage(self.pickPage, {'transition': 'pop'});
 			}
 			this.options.isOpen = true;
@@ -105,15 +108,18 @@
 			var thisPage = $('.ui-page-active'),
 				pickPage = $("<div data-role='dialog' class='ui-simpledialog-dialog' data-theme='" + o.pickPageTheme + "' >" +
 							"<div data-role='header' data-backbtn='false' data-theme='a'>" +
-								"<div class='ui-title'>"+o.prompt+"</div>"+
+								"<div class='ui-title'>"+o.prompt+"</div>" +
 							"</div>"+
-							"<div data-role='content'></div>"+
+							"<div data-role='content'>"+
+								((o.mode === 'blank')?
+								  ("<div class='ui-simpledialog-container ui-overlay-shadow ui-corner-all ui-simpledialog-hidden pop ui-body-"+o.pickPageTheme+"'>"+o.fullHTML+"</div>")
+								  :'') +
+							"</div>"+
 						"</div>")
 						.appendTo( $.mobile.pageContainer )
 						.page().css('minHeight', '0px').css('zIndex', o.zindex).addClass('pop'),
 				pickPageContent = pickPage.find( ".ui-content" );
 				
-			
 			pickPage.find( ".ui-header a").click(function(e) {
 				e.preventDefault();
 				e.stopImmediatePropagation();
@@ -152,46 +158,50 @@
 			pickerContent = $("<div>", { "class": 'ui-simpledialog-container ui-overlay-shadow ui-corner-all ui-simpledialog-hidden pop ui-body-'+o.pickPageTheme} ).css('zIndex', o.zindex),
 			pickerHeader = $("<div class='ui-simpledialog-header'><h4></h4></div>").appendTo(pickerContent).find("h4");
 			
-		if ( o.prompt !== false ) {
-			pickerHeader.html(o.prompt);
-		} else {
-			pickerHeader.parent().html();
-		}
-		
-		if ( o.mode === 'string' ) {
-			pickerInput = $("<div class='ui-simpledialog-controls'><input class='ui-simpledialog-input ui-input-text ui-shadow-inset ui-corner-all ui-body-"+o.pickPageInputTheme+"' type='text' name='pickin' /></div>")
-				.bind('keyup', function(event) {
-					if ( event.keyCode === 13 && o.enterToTrigger !== false )  {
-						o.butObj[o.enterToTrigger].trigger('click');
-					}
-					if ( event.keyCode === 27 && o.escToTrigger !== false )  {
-						o.butObj[o.escToTrigger].trigger('click');
-					}
-				})
-				.appendTo(pickerContent);
-		}
-		
-		pickerChoice = $("<div>", { "class":'ui-simpledialog-controls' }).appendTo(pickerContent);
+		if ( o.mode !== 'blank' ) {
+			if ( o.prompt !== false ) {
+				pickerHeader.html(o.prompt);
+			} else {
+				pickerHeader.parent().html();
+			}
 			
-		$.each(o.buttons, function(name, props) {
-			props = $.isFunction( props ) ?	{ click: props } : props;
-			props = $.extend({
-				text: name,
-				theme: o.pickPageButtonTheme,
-				icon: 'check',
-				iconpos: 'left'
-			}, props);
-			o.butObj.push($("<a href='#'>"+name+"</a>")
-				.appendTo(pickerChoice)
-				.buttonMarkup({theme: props.theme, icon: props.icon, iconpos: props.iconpos, corners: true, shadow: true})
-				.unbind("vclick").unbind("click")
-				.bind("vclick", function() {
-					if ( o.mode === 'string' ) { self.caller.attr('data-string', pickerInput.find('input').val()); }
-					props.click.apply(self.element[0], arguments);
-					self.close();
-				})
-			);
-		});
+			if ( o.mode === 'string' ) {
+				pickerInput = $("<div class='ui-simpledialog-controls'><input class='ui-simpledialog-input ui-input-text ui-shadow-inset ui-corner-all ui-body-"+o.pickPageInputTheme+"' type='text' name='pickin' /></div>")
+					.bind('keyup', function(event) {
+						if ( event.keyCode === 13 && o.enterToTrigger !== false )  {
+							o.butObj[o.enterToTrigger].trigger('click');
+						}
+						if ( event.keyCode === 27 && o.escToTrigger !== false )  {
+							o.butObj[o.escToTrigger].trigger('click');
+						}
+					})
+					.appendTo(pickerContent);
+			}
+			
+			pickerChoice = $("<div>", { "class":'ui-simpledialog-controls' }).appendTo(pickerContent);
+				
+			$.each(o.buttons, function(name, props) {
+				props = $.isFunction( props ) ?	{ click: props } : props;
+				props = $.extend({
+					text: name,
+					theme: o.pickPageButtonTheme,
+					icon: 'check',
+					iconpos: 'left'
+				}, props);
+				o.butObj.push($("<a href='#'>"+name+"</a>")
+					.appendTo(pickerChoice)
+					.buttonMarkup({theme: props.theme, icon: props.icon, iconpos: props.iconpos, corners: true, shadow: true})
+					.unbind("vclick").unbind("click")
+					.bind("vclick", function() {
+						if ( o.mode === 'string' ) { self.caller.attr('data-string', pickerInput.find('input').val()); }
+						props.click.apply(self.element[0], arguments);
+						self.close();
+					})
+				);
+			});
+		} else {
+			pickerContent = self.pickPageContent.contents();
+		}
 		
 		pickerContent.appendTo(self.thisPage);
 		
