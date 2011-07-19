@@ -120,7 +120,7 @@
 						.page().css('minHeight', '0px').css('zIndex', o.zindex).addClass('pop'),
 				pickPageContent = pickPage.find( ".ui-content" );
 				
-			pickPage.find( ".ui-header a").click(function(e) {
+			pickPage.find( ".ui-header a").bind('vclick', function(e) {
 				e.preventDefault();
 				e.stopImmediatePropagation();
 				self.close();
@@ -169,10 +169,10 @@
 				pickerInput = $("<div class='ui-simpledialog-controls'><input class='ui-simpledialog-input ui-input-text ui-shadow-inset ui-corner-all ui-body-"+o.pickPageInputTheme+"' type='text' name='pickin' /></div>")
 					.bind('keyup', function(event) {
 						if ( event.keyCode === 13 && o.enterToTrigger !== false )  {
-							o.butObj[o.enterToTrigger].trigger('click');
+							o.butObj[o.enterToTrigger].trigger('vclick');
 						}
 						if ( event.keyCode === 27 && o.escToTrigger !== false )  {
-							o.butObj[o.escToTrigger].trigger('click');
+							o.butObj[o.escToTrigger].trigger('vclick');
 						}
 					})
 					.appendTo(pickerContent);
@@ -208,7 +208,7 @@
 		screen = $("<div>", {'class':'ui-simpledialog-screen ui-simpledialog-hidden'})
 			.css({'z-index': o.zindex-1})
 			.appendTo(self.thisPage)
-			.bind("click", function(event){
+			.bind("vclick", function(event){
 				if ( !o.forceInput ) {
 					self.close();
 				}
