@@ -22,6 +22,7 @@
 		isOpen: false,
 		blankMode: false,
 		fullHTML: null,
+		inputPassword: false,
 		
 		useDialogForceTrue: false,
 		useDialogForceFalse: false,
@@ -166,7 +167,7 @@
 			}
 			
 			if ( o.mode === 'string' ) {
-				pickerInput = $("<div class='ui-simpledialog-controls'><input class='ui-simpledialog-input ui-input-text ui-shadow-inset ui-corner-all ui-body-"+o.pickPageInputTheme+"' type='text' name='pickin' /></div>")
+				pickerInput = $("<div class='ui-simpledialog-controls'><input class='ui-simpledialog-input ui-input-text ui-shadow-inset ui-corner-all ui-body-"+o.pickPageInputTheme+"' type='"+((o.inputPassword===true)?"password":"text")+"' name='pickin' /></div>")
 					.bind('keyup', function(event) {
 						if ( event.keyCode === 13 && o.enterToTrigger !== false )  {
 							o.butObj[o.enterToTrigger].trigger('vclick');

@@ -103,6 +103,58 @@ $('#dialoglink').live('vclick', function() {
     }
   })
 })</pre>
+
+			<h2>String Password Input Mode</h2>
+			<p>This shows getting a password input.</p>
+			<p>You have entered: <span id="simplepassout"></span></p>
+			<script type="text/javascript"> 
+				$('#simplepass').live('vclick', function() {
+					$(this).simpledialog({
+						'mode' : 'string',
+						'prompt' : 'Password?',
+						'inputPassword': true,
+						'buttons' : {
+							'OK': {
+								click: function () { 
+									$('#simplepassout').text($('#simplepass').attr('data-string'));
+								}
+							},
+							'Cancel': {
+								click: function () { console.log(this); },
+								icon: "delete",
+								theme: "c"
+							}
+						}
+					})
+				});
+			</script>
+			<a href="#" id="simplepass" data-role="button">Open Dialog</a>
+			<strong>HTML</strong><pre class="prettyprint">
+&lt;p&gt;You have entered: &lt;span id="dialogoutput"&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;a href="#" id="dialoglink" data-role="button"&gt;Open Dialog&lt;/a&gt;</pre>
+
+			<strong>jQuery</strong><pre class="prettyprint">
+$('#dialoglink').live('vclick', function() {
+  $(this).simpledialog({
+    'mode' : 'string',
+    'prompt' : 'Password?',
+    'inputPassword': true,
+    'buttons' : {
+      'OK': {
+        click: function () {
+          $('#dialogoutput').text($('#dialoglink').attr('data-string'));
+        }
+      },
+      'Cancel': {
+        click: function () { return false; },
+        icon: "delete",
+        theme: "c"
+      }
+    }
+  })
+})</pre>
+
 			<h2>Adding to a Select Box</h2>
 			<p>This shows how to use SimpleDialog to add to a select box.</p>
 			
