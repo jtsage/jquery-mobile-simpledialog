@@ -148,7 +148,6 @@
 		if ( !this.options.mode === "blank" ) { 
 			return false; 
 		} else {
-			console.log(this.pickerContent);
 			this.pickerContent.html(this.options.fullHTML);
 			this.pickerContent.trigger('create');
 		}
