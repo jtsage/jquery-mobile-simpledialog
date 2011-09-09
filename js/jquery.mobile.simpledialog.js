@@ -144,6 +144,15 @@
 			self.options.isInit = true;
 		}
 	},
+	refresh: function() {
+		if ( !this.options.mode === "blank" ) { 
+			return false; 
+		} else {
+			console.log(this.pickerContent);
+			this.pickerContent.html(this.options.fullHTML);
+			this.pickerContent.trigger('create');
+		}
+	},
 	_init: function() {
 		if ( !this.options.sawOnce || this.options.allowReopen ) {
 			this.options.sawOnce = true;

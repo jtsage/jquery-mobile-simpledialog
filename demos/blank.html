@@ -57,7 +57,12 @@
 		<div class="content-primary"> 
 			
 			<h2>Button to open custom HTML dialog</h2>
-			<p>note you are size limited to about 280px wide</p>
+			<p>note you are size limited to about 280px wide (unless you mess with the CSS directly.<br />
+			You can also later change the contents of fullHTML - simple change it to whatever you like:
+			<pre class="prettyprint">$('#simpleraw').data('simpledialog').options.fullHTML = "..."</pre>
+			then, call the refresh function:
+			<pre class="prettyprint">$('#simpleraw').simpledialog('refresh');</pre>
+			</p>
 			<script type="text/javascript"> 
 				$('#simpleraw').live('vclick', function() {
 					$(this).simpledialog({
