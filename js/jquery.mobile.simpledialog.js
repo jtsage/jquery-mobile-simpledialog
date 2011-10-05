@@ -24,6 +24,9 @@
 		fullHTML: null,
 		inputPassword: false,
 		
+		left: undefined,
+		top: undefined,
+	     	    
 		useDialogForceTrue: false,
 		useDialogForceFalse: false,
 		useDialog: false,
@@ -45,8 +48,8 @@
 			pickWinHeight = self.pickerContent.outerHeight(),
 			pickWinWidth = self.pickerContent.innerWidth(),
 			
-			pickWinTop = docWinHeightOffset + ( docWinHeight / 2 )- ( pickWinHeight / 2),
-			pickWinLeft = ( docWinWidth / 2) - ( pickWinWidth / 2);
+			pickWinTop = (parseFloat(o.top)+10000) ? parseFloat(o.top) : (docWinHeightOffset + ( docWinHeight / 2 )- ( pickWinHeight / 2)),
+			pickWinLeft = (parseFloat(o.left)+10000) ? parseFloat(o.left) : (( docWinWidth / 2) - ( pickWinWidth / 2));
 					
 		if ( (pickWinHeight + pickWinTop) > $(document).height() ) {
 			pickWinTop = $(document).height() - (pickWinHeight + 2);
