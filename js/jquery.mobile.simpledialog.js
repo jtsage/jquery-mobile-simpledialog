@@ -38,6 +38,30 @@
 		butObj: [],
 		debug: false
 	},
+	_orientChange: function(e) {
+		var self = $(e.currentTarget).data('simpledialog');
+			o = self.options,
+			docWinWidth = $(document).width(),
+			docWinHeightOffset = $(window).scrollTop(),
+			docWinHeight = $(window).height(),
+			pickWinHeight = self.pickerContent.outerHeight(),
+			pickWinWidth = self.pickerContent.innerWidth(),
+			
+			pickWinTop = (parseFloat(o.top)+10000) ? parseFloat(o.top) : (docWinHeightOffset + ( docWinHeight / 2 )- ( pickWinHeight / 2)),
+			pickWinLeft = (parseFloat(o.left)+10000) ? parseFloat(o.left) : (( docWinWidth / 2) - ( pickWinWidth / 2));
+					
+		if ( (pickWinHeight + pickWinTop) > $(document).height() ) {
+			pickWinTop = $(document).height() - (pickWinHeight + 2);
+		}
+		if ( pickWinTop < 45 ) { pickWinTop = 45; }
+		
+		e.stopPropagation();
+		if ( ! self.pickerContent.is(':visible') || o.useDialog === true ) { 
+			return false;  // Not open, or in a dialog (let jQM do it)
+		} else {
+			self.pickerContent.css({'top': pickWinTop, 'left': pickWinLeft});
+		}
+	},
 	open: function() {
 		if ( this.pickPage.is(':visible') ) { return false; }
 		
@@ -146,6 +170,10 @@
 			
 			self._buildPage();
 			self.options.isInit = true;
+			
+			$(document).bind('orientationchange', function(e) { caller.trigger('orientationchange'); });
+		
+			caller.bind('orientationchange', self._orientChange);
 		}
 	},
 	refresh: function() {
