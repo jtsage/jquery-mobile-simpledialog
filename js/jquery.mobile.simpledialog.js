@@ -22,6 +22,7 @@
 		isOpen: false,
 		blankMode: false,
 		fullHTML: null,
+		subTitle: false,
 		inputPassword: false,
 		
 		left: undefined,
@@ -175,6 +176,10 @@
 				pickerHeader.html(o.prompt);
 			} else {
 				pickerHeader.parent().html();
+			}
+			
+			if ( o.subTitle !== false ) {
+				$("<p class='ui-simpledialog-subtitle'>"+o.subTitle+"<p>").appendTo(pickerContent);
 			}
 			
 			if ( o.mode === 'string' ) {

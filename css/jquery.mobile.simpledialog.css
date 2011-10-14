@@ -11,6 +11,7 @@
 .ui-simpledialog-hidden { display: none; }
 .ui-simpledialog-input { width: 85% !important; display: block !important; margin-left: auto; margin-right: auto;}
 .ui-simpledialog-screen-modal { background-color: black; -moz-opacity: 0.8; opacity:.80; filter: alpha(opacity=80); }
+.ui-simpledialog-subtitle { text-align: center; }
 
 .ui-dialog .ui-simpledialog-container { border: none !important; }
 .ui-dialog-simpledialog .ui-content { padding: 5px !important;}
