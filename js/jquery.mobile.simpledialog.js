@@ -38,7 +38,7 @@
 		debug: false
 	},
 	open: function() {
-		if ( this.options.isOpen ) { return true; }
+		if ( this.pickPage.is(':visible') ) { return false; }
 		
 		var self = this,
 			o = this.options,
@@ -124,7 +124,7 @@
 						.page().css('minHeight', '0px').css('zIndex', o.zindex).addClass('pop'),
 				pickPageContent = pickPage.find( ".ui-content" );
 				
-			pickPage.find( ".ui-header a").bind('vclick', function(e) {
+			pickPage.find( ".ui-header a").bind('click', function(e) {
 				e.preventDefault();
 				e.stopImmediatePropagation();
 				self.close();
@@ -181,10 +181,10 @@
 				pickerInput = $("<div class='ui-simpledialog-controls'><input class='ui-simpledialog-input ui-input-text ui-shadow-inset ui-corner-all ui-body-"+o.pickPageInputTheme+"' type='"+((o.inputPassword===true)?"password":"text")+"' name='pickin' /></div>")
 					.bind('keyup', function(event) {
 						if ( event.keyCode === 13 && o.enterToTrigger !== false )  {
-							o.butObj[o.enterToTrigger].trigger('vclick');
+							o.butObj[o.enterToTrigger].trigger('click');
 						}
 						if ( event.keyCode === 27 && o.escToTrigger !== false )  {
-							o.butObj[o.escToTrigger].trigger('vclick');
+							o.butObj[o.escToTrigger].trigger('click');
 						}
 					})
 					.appendTo(pickerContent);
@@ -204,7 +204,7 @@
 					.appendTo(pickerChoice)
 					.buttonMarkup({theme: props.theme, icon: props.icon, iconpos: props.iconpos, corners: true, shadow: true})
 					.unbind("vclick").unbind("click")
-					.bind("vclick", function() {
+					.bind("click", function() {
 						if ( o.mode === 'string' ) { self.caller.attr('data-string', pickerInput.find('input').val()); }
 						props.click.apply(self.element[0], arguments);
 						self.close();
@@ -220,7 +220,7 @@
 		screen = $("<div>", {'class':'ui-simpledialog-screen ui-simpledialog-hidden'})
 			.css({'z-index': o.zindex-1})
 			.appendTo(self.thisPage)
-			.bind("vclick", function(event){
+			.bind("click", function(event){
 				if ( !o.forceInput ) {
 					self.close();
 				}
