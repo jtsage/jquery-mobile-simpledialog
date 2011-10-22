@@ -239,8 +239,9 @@
 					.unbind("vclick").unbind("click")
 					.bind("click", function() {
 						if ( o.mode === 'string' ) { self.caller.attr('data-string', pickerInput.find('input').val()); }
-						props.click.apply(self.element[0], arguments);
-						self.close();
+						var val = props.click.apply(self.element[0], arguments);
+						if(val !== false)
+							self.close();
 					})
 				);
 			});
