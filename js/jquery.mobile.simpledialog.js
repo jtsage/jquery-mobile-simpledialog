@@ -13,6 +13,7 @@
 		
 		disabled: false,
 		zindex: '500',
+		width:  '280px',
 		
 		prompt: 'Are you sure?', // or false.
 		mode: 'bool', // or 'string'
@@ -141,7 +142,7 @@
 							"</div>"+
 							"<div data-role='content'>"+
 								((o.mode === 'blank')?
-								  ("<div class='ui-simpledialog-container ui-overlay-shadow ui-corner-all ui-simpledialog-hidden pop ui-body-"+o.pickPageTheme+"'>"+o.fullHTML+"</div>")
+								  ("<div class='ui-simpledialog-container ui-overlay-shadow ui-corner-all ui-simpledialog-hidden pop ui-body-"+o.pickPageTheme+"' style='width:" + o.width + "'>"+o.fullHTML+"</div>")
 								  :'') +
 							"</div>"+
 						"</div>")
@@ -196,7 +197,7 @@
 			pickerInput,
 			pickerChoice,
 			screen,
-			pickerContent = $("<div>", { "class": 'ui-simpledialog-container ui-overlay-shadow ui-corner-all ui-simpledialog-hidden pop ui-body-'+o.pickPageTheme} ).css('zIndex', o.zindex),
+			pickerContent = $("<div>", { "class": 'ui-simpledialog-container ui-overlay-shadow ui-corner-all ui-simpledialog-hidden pop ui-body-'+o.pickPageTheme}).css({'zIndex': o.zindex, 'width': o.width}),
 			pickerHeader = $("<div class='ui-simpledialog-header'><h4></h4></div>").appendTo(pickerContent).find("h4");
 			
 		if ( o.mode !== 'blank' ) {
