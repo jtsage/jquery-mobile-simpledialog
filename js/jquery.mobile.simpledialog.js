@@ -114,7 +114,7 @@
 
 		if ( self.options.useDialog ) {
 			$(self.pickPage).dialog('close');
-			self.pickerContent.addClass('ui-simpledialog-hidden').removeAttr('style').css('zIndex', self.options.zindex);
+			self.pickerContent.addClass('ui-simpledialog-hidden');
 			self.thisPage.append(self.pickerContent);
 		} else {
 			if ( self.options.useModal ) {
@@ -122,7 +122,7 @@
 			} else {
 				self.screen.addClass('ui-simpledialog-hidden');
 			}
-			self.pickerContent.addClass('ui-simpledialog-hidden').removeClass('in').removeAttr('style').css('zIndex', self.options.zindex);
+			self.pickerContent.addClass('ui-simpledialog-hidden').removeClass('in');
 		}
 		self.caller.removeClass('ui-btn-active');
 		self.options.isOpen = false;
