@@ -4,14 +4,14 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>jQueryMobile - SimpleDialog Demos</title>
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0rc2/jquery.mobile-1.0rc2.min.css" />
 	<link type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" rel="stylesheet" /> 
 	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
 	
 	<!-- NOTE: Script load order is significant! -->
 	
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script> >
-	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script> >
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0rc2/jquery.mobile-1.0rc2.min.js"></script>
 	<script type="text/javascript" src="http://jquerymobile.com/demos/1.0b1/experiments/themeswitcher/jquery.mobile.themeswitcher.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.js"></script>
@@ -64,7 +64,7 @@
 			<pre class="prettyprint">$('#simpleraw').simpledialog('refresh');</pre>
 			</p>
 			<script type="text/javascript"> 
-				$('#simpleraw').live('click', function() {
+				$(document).delegate('#simpleraw', 'click', function() {
 					$(this).simpledialog({
 						'mode' : 'blank',
 						'prompt': false,
@@ -74,7 +74,7 @@
 							"<ul data-role='listview'><li>Some</li><li>List</li><li>Items</li></ul><a data-role='button' href='#' id='simpleclose'>Close</a>"
 						})
 					});
-				$('#simpleclose').live('click', function() {
+				$(document).delegate('#simpleclose', 'click', function() {
 					$('#simpleraw').simpledialog('close');
 				});
 			</script>
@@ -83,7 +83,7 @@
 &lt;a href="#" id="dialoglink" data-role="button"&gt;Open Dialog&lt;/a&gt;</pre>
 
 			<strong>jQuery</strong><pre class="prettyprint">
-$('#dialoglink').live('click', function() {
+$(document).delegate('#simpleraw', 'click', function() {
     $(this).simpledialog({
         'mode' : 'blank',
         'prompt': false,
@@ -93,7 +93,7 @@ $('#dialoglink').live('click', function() {
             "&lt;ul data-role='listview'&gt;&lt;li&gt;Some&lt;/li&gt;&lt;li&gt;List&lt;/li&gt;&lt;li&gt;Items&lt;/li&gt;&lt;/ul&gt;&lt;a data-role='button' href='#' id='simpleclose'&gt;Close&lt;/a&gt;"
     })
 });
-$('#simpleclose').live('click', function() {
+$(document).delegate('#simpleclose', 'click', function() {
 	$('#dialoglink').simpledialog('close');
 });</pre>
 			</div>

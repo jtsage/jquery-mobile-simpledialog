@@ -4,14 +4,14 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>jQueryMobile - SimpleDialog Demos</title>
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0rc2/jquery.mobile-1.0rc2.min.css" />
 	<link type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" rel="stylesheet" /> 
 	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
 	
 	<!-- NOTE: Script load order is significant! -->
 	
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script> >
-	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script> >
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0rc2/jquery.mobile-1.0rc2.min.js"></script>
 	<script type="text/javascript" src="http://jquerymobile.com/demos/1.0b1/experiments/themeswitcher/jquery.mobile.themeswitcher.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.js"></script>
@@ -59,10 +59,11 @@
 			<p>This shows the simplest form of bool mode.  You can add as many buttons as you want.</p>
 			<p>You clicked: <span id="simpleboolout"></span></p>
 			<script type="text/javascript"> 
-				$('#simplebool').live('vclick', function() {
+				$(document).delegate('#simplebool', 'click', function() {
 					$(this).simpledialog({
 						'mode' : 'bool',
 						'prompt' : 'How about it?',
+						'useModal' : true,
 						'buttons' : {
 							'OK': {
 								click: function () { 
@@ -87,10 +88,11 @@
 &lt;a href="#" id="dialoglink" data-role="button"&gt;Open Dialog&lt;/a&gt;</pre>
 
 			<strong>jQuery</strong><pre class="prettyprint">
-$('#dialoglink').live('vclick', function() {
+$(document).delegate('#simplebool', 'click', function() {
   $(this).simpledialog({
     'mode' : 'bool',
     'prompt' : 'How about it?',
+    'useModal': true,
     'buttons' : {
       'OK': {
         click: function () {
