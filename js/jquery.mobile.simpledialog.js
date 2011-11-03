@@ -140,16 +140,23 @@
 							"<div data-role='header' data-backbtn='false' data-theme='a'>" +
 								"<div class='ui-title'>"+o.prompt+"</div>" +
 							"</div>"+
-							"<div data-role='content'>"+
-								((o.mode === 'blank')?
-								  ("<div class='ui-simpledialog-container ui-overlay-shadow ui-corner-all ui-simpledialog-hidden pop ui-body-"+o.pickPageTheme+"' style='width:" + o.width + "'>"+o.fullHTML+"</div>")
-								  :'') +
-							"</div>"+
-						"</div>")
-						.appendTo( $.mobile.pageContainer )
-						.page().css('minHeight', '0px').css('zIndex', o.zindex).addClass('pop'),
-				pickPageContent = pickPage.find( ".ui-content" );
-				
+							"<div data-role='content'></div>"+
+						"</div>"),
+				ct = null,
+				pickPageContent = null;
+			
+			if (o.mode === 'blank') {
+			    ct = $("<div class='ui-simpledialog-container ui-overlay-shadow ui-corner-all ui-simpledialog-hidden pop ui-body-" +
+                     o.pickPageTheme + "'></div>");
+			    ct.html(o.fullHTML);
+			    $('[data-role=content]', pickPage).append(ct);
+			}
+
+            pickPage.appendTo( $.mobile.pageContainer )
+					.page().css('minHeight', '0px').css('zIndex', o.zindex).addClass('pop');
+			
+			pickPageContent = pickPage.find( ".ui-content" );
+			
 			pickPage.find( ".ui-header a").bind('click', function(e) {
 				e.preventDefault();
 				e.stopImmediatePropagation();
