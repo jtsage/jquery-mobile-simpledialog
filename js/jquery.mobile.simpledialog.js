@@ -146,21 +146,21 @@
 				pickPageContent = null;
 			
 			if (o.mode === 'blank') {
-			    ct = $("<div class='ui-simpledialog-container ui-overlay-shadow ui-corner-all ui-simpledialog-hidden pop ui-body-" +
-                     o.pickPageTheme + "'></div>");
-			    ct.html(o.fullHTML);
-			    $('[data-role=content]', pickPage).append(ct);
+				ct = $("<div class='ui-simpledialog-container ui-overlay-shadow ui-corner-all ui-simpledialog-hidden pop ui-body-" +
+					o.pickPageTheme + "'></div>");
+				ct.html(o.fullHTML);
+				$('[data-role=content]', pickPage).append(ct);
 			}
-
-            pickPage.appendTo( $.mobile.pageContainer )
-					.page().css('minHeight', '0px').css('zIndex', o.zindex).addClass('pop');
+			
+			pickPage.appendTo( $.mobile.pageContainer )
+				.page().css('minHeight', '0px').css('zIndex', o.zindex).addClass('pop');
 			
 			pickPageContent = pickPage.find( ".ui-content" );
 			
 			pickPage.find( ".ui-header a").bind('click', function(e) {
 				e.preventDefault();
 				e.stopImmediatePropagation();
-				self.close();
+				if ( ! self.options.useDialog ) { self.close(); }
 				return false;
 			});
 			
