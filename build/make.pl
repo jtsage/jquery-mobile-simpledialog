@@ -3,6 +3,8 @@
 $javapath = `which java`;
 chomp $javapath;
 
+$slugtext = "/*\n * jQuery Mobile Framework : plugin to provide a simple popup (modal) or jQMdialog (page) Dialog widget.\n * Copyright (c) JTSage\n * CC 3.0 Attribution.  May be relicensed without permission/notifcation.\n * https://github.com/jtsage/jquery-mobile-simpledialog\n */\n";
+
 @files = (
 	'jquery.mobile.simpledialog.min.js',
 	'jquery.mobile.simpledialog.min.css');
@@ -28,6 +30,7 @@ if ( $ARGV[0] ) {
 		print OUTFILE $last;
 		close OUTFILE;
 		print "BUILD FINISHED.\n";
+		do_slug("./jquery.mobile.simpledialog.min.js");
 	}
 	elsif ( $ARGV[0] eq 'check' ) {
 		$last = (stat "../js/jquery.mobile.simpledialog.js")[9];
@@ -74,6 +77,19 @@ sub show_usage {
 	print " usage :-: Show this information\n";
 	print " clean :-: Clean the build directory\n";
 	print " check :-: Check build status of scripts\n\n";
+}
+
+sub do_slug {
+	local @ARGV = ($_[0]);
+	local $^I = '.bac';
+	while(<>){
+		if ($. == 1) {
+			print "$slugtext$/";
+			print;
+		} else {
+			print;
+		}
+	}
 }
 
 sub make_master {

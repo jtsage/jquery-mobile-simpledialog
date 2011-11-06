@@ -1,8 +1,8 @@
-/*
+ /*
  * jQuery Mobile Framework : plugin to provide a simple popup (modal) or jQMdialog (page) Dialog widget.
  * Copyright (c) JTSage
  * CC 3.0 Attribution.  May be relicensed without permission/notifcation.
- * 
+ * https://github.com/jtsage/jquery-mobile-simpledialog
  */
 (function($, undefined ) {
   $.widget( "mobile.simpledialog", $.mobile.widget, {
