@@ -44,59 +44,36 @@
 				<li data-role="list-divider">Overview</li> 
 				<li><a href="../index.html">Intro &amp; Features</a></li>
 				<li><a href="install.html">Download &amp; Use</a></li>
-				<li><a href="event.html">Methods and Events</a></li>
+				<li data-theme="a">Methods and Events</a></li>
 				<li><a href="config.html">Full Options Matrix</a></li>
-				<li data-role="list-divider">Demos</li>
+				<li data-role="list-divider">Demos</li> 
 				<li><a href="bool.html">Boolean / Button Mode</a></li>
 				<li><a href="string.html">String / Input Mode</a></li>
-				<li data-theme="a">Raw HTML Mode</li>
+				<li><a href="blank.html">Raw HTML Mode</a></li>
 			</ul> 
 			
 		</div><!--/content-primary-->	
 		
-		<div class="content-primary"> 
+		<div class="content-primary">
+			<h2>Public Functions</h2> 
+			<p>SimpleDialog has only a few public functions.  They are:
+			<ul data-role="listview" data-inset="true">
+				<li><h3>$('element').simpledialog('open')</h3><p>REopen the dialog (opens automatically first instance)</p></li>
+				<li><h3>$('element').simpledialog('close')</h3><p>Close the dialog</p></li>
+				<li><h3>$('element').simpledialog('refresh')</h3><p>Refresh the contents of the dialog (blank HTML mode only)</p></li>
+			</ul>
+			<h2>Events Available</h2>
+			<p>Events are all handled through the same master event <em>simpledialog</em>.  For instance:</p><pre class="prettyprint">
+$(some-simpledialog-element).trigger('simpledialog', {'method': 'open'});
+</pre>
+			<ul data-role="listview" data-inset="true">
+				<li><h3>Triger to reopen (if enabled)</h3><p><strong>{'method'}</strong> === open</p></li>
+				<li><h3>Triger to close</h3><p><strong>{'method'}</strong> === close</p></li>
+				<li><h3>Triger to refresh (blank mode)</h3><p><strong>{'method'}</strong> === refresh</p></li>
+				<li><h3>Triger to click button</h3><p><strong>{'method'}</strong> === button<br /><strong>{'index'}</strong> === numeric index of button, starting at 0. Bool mode only</p></li>
+			</ul>
 			
-			<h2>Button to open custom HTML dialog</h2>
-			<p>note you are size limited to about 280px wide (unless you mess with the CSS directly.<br />
-			You can also later change the contents of fullHTML - simple change it to whatever you like:
-			<pre class="prettyprint">$('#simpleraw').data('simpledialog').options.fullHTML = "..."</pre>
-			then, call the refresh function:
-			<pre class="prettyprint">$('#simpleraw').simpledialog('refresh');</pre>
-			</p>
-			<script type="text/javascript"> 
-				$(document).delegate('#simpleraw', 'click', function() {
-					$(this).simpledialog({
-						'mode' : 'blank',
-						'prompt': false,
-						'forceInput': false,
-						'useModal': true,
-						'fullHTML' : 
-							"<ul data-role='listview'><li>Some</li><li>List</li><li>Items</li></ul><a data-role='button' href='#' id='simpleclose'>Close</a>"
-						})
-					});
-				$(document).delegate('#simpleclose', 'click', function() {
-					$('#simpleraw').simpledialog('close');
-				});
-			</script>
-			<a href="#" id="simpleraw" data-role="button">Open Dialog</a>
-			<strong>HTML</strong><pre class="prettyprint">
-&lt;a href="#" id="dialoglink" data-role="button"&gt;Open Dialog&lt;/a&gt;</pre>
-
-			<strong>jQuery</strong><pre class="prettyprint">
-$(document).delegate('#simpleraw', 'click', function() {
-    $(this).simpledialog({
-        'mode' : 'blank',
-        'prompt': false,
-        'forceInput': false,
-        'useModal':true,
-        'fullHTML' : 
-            "&lt;ul data-role='listview'&gt;&lt;li&gt;Some&lt;/li&gt;&lt;li&gt;List&lt;/li&gt;&lt;li&gt;Items&lt;/li&gt;&lt;/ul&gt;&lt;a data-role='button' href='#' id='simpleclose'&gt;Close&lt;/a&gt;"
-    })
-});
-$(document).delegate('#simpleclose', 'click', function() {
-	$('#dialoglink').simpledialog('close');
-});</pre>
-			</div>
+		</div> 
 		
 	</div>
 	<div data-role="footer">

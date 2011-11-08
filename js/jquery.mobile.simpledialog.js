@@ -28,7 +28,7 @@
 		
 		left: undefined,
 		top: undefined,
-	     	    
+		
 		useDialogForceTrue: false,
 		useDialogForceFalse: false,
 		useDialog: false,
@@ -38,6 +38,28 @@
 		escToTrigger: 1,
 		butObj: [],
 		debug: false
+	},
+	_eventHandler: function(event, payload) {
+		// Handle all event triggers that have an internal effect
+		var widget = $(this).data('simpledialog'),
+			o = widget.options;
+		
+		if ( ! event.isPropagationStopped() ) {
+			switch (payload.method) {
+				case 'close':
+					widget.close(payload.fromCloseButton);
+					break;
+				case 'open':
+					widget.open();
+					break;
+				case 'refresh':
+					widget.refresh();
+					break;
+				case 'button':
+					o.butObj[payload.index].trigger('click');
+					break;
+			}
+		} 
 	},
 	_orientChange: function(e) {
 		var self = $(e.currentTarget).data('simpledialog');
@@ -109,11 +131,20 @@
 			this.options.isOpen = true;
 		}
 	},
-	close: function() {
+	close: function(fromCloseButton) {
 		var self = this;
-
+		
+		fromCloseButton = ( typeof(fromCloseButton) === 'undefined' ) ? 'false' : fromCloseButton;
+		
 		if ( self.options.useDialog ) {
-			$(self.pickPage).dialog('close');
+			if ( fromCloseButton === false ) {
+				$(self.pickPage).dialog('close');
+			}
+			if( ! self.thisPage.data("page").options.domCache ){
+				self.thisPage.bind( "pagehide.remove", function() {
+					$(self).remove();
+				});
+			}
 			self.pickerContent.addClass('ui-simpledialog-hidden');
 			self.thisPage.append(self.pickerContent);
 		} else {
@@ -135,7 +166,7 @@
 		if ( o.isInit &&  o.allowReopen ) { 
 			self.open(); 
 		} else { 
-			var thisPage = $('.ui-page-active'),
+			var thisPage = caller.closest('.ui-page'),
 				pickPage = $("<div data-role='dialog' class='ui-simpledialog-dialog' data-theme='" + o.pickPageTheme + "' >" +
 							"<div data-role='header' data-backbtn='false' data-theme='a'>" +
 								"<div class='ui-title'>"+o.prompt+"</div>" +
@@ -157,11 +188,14 @@
 			
 			pickPageContent = pickPage.find( ".ui-content" );
 			
-			pickPage.find( ".ui-header a").bind('click', function(e) {
+			// Bind the master handler.
+			$(caller).delegate(caller, 'simpledialog', self._eventHandler);
+			
+			// Bind the close button on the DIALOG mode.
+			pickPage.find( ".ui-header a").bind('vclick', function(e) {
 				e.preventDefault();
 				e.stopImmediatePropagation();
-				if ( ! self.options.useDialog ) { self.close(); }
-				return false;
+				self.input.trigger('datebox', {'method':'close', 'fromCloseButton':true});
 			});
 			
 			if ( o.prompt === false ) {
@@ -239,7 +273,8 @@
 					text: name,
 					theme: o.pickPageButtonTheme,
 					icon: 'check',
-					iconpos: 'left'
+					iconpos: 'left',
+					closeOnClick: true
 				}, props);
 				o.butObj.push($("<a href='#'>"+name+"</a>")
 					.appendTo(pickerChoice)
@@ -248,8 +283,9 @@
 					.bind("click", function() {
 						if ( o.mode === 'string' ) { self.caller.attr('data-string', pickerInput.find('input').val()); }
 						var val = props.click.apply(self.element[0], arguments);
-						if(val !== false)
-							self.close();
+						if ( val !== false && props.closeOnClick === true ) {
+							self.caller.trigger('simpledialog', {'method':'close'});
+						}
 					})
 				);
 			});
@@ -264,7 +300,7 @@
 			.appendTo(self.thisPage)
 			.bind("click", function(event){
 				if ( !o.forceInput ) {
-					self.close();
+					self.caller.trigger('simpledialog', {'method':'close'});
 				}
 				event.preventDefault();
 			});
