@@ -123,6 +123,8 @@
 				self.pickerHeader.show();
 				self.pickerContent.css({'position': 'absolute', 'top': pickWinTop, 'left': pickWinLeft}).addClass('ui-overlay-shadow in').removeClass('ui-simpledialog-hidden');
 			} else {
+				// prevent the parent page from being removed from the DOM,
+				self.thisPage.unbind( "pagehide.remove" );
 				o.useDialog = true;
 				self.pickPageContent.append(self.pickerContent);
 				self.pickerHeader.hide();
@@ -133,9 +135,8 @@
 		}
 	},
 	close: function(fromCloseButton) {
-		var self = this;
-		
-		fromCloseButton = ( typeof(fromCloseButton) === 'undefined' ) ? 'false' : fromCloseButton;
+		var self = this,
+			fromCloseButton = ( typeof(fromCloseButton) === 'undefined' ) ? false : fromCloseButton;
 		
 		if ( self.options.useDialog ) {
 			if ( fromCloseButton === false ) {
@@ -158,7 +159,7 @@
 		}
 		self.caller.removeClass('ui-btn-active');
 		self.options.isOpen = false;
-		if ( self.options.cleanOnClose === true ) {
+		if ( self.options.cleanOnClose === true && self.options.useDialog === false ) {
 			self.clean();
 		}
 	},
@@ -208,7 +209,7 @@
 			pickPage.find( ".ui-header a").bind('vclick', function(e) {
 				e.preventDefault();
 				e.stopImmediatePropagation();
-				self.input.trigger('datebox', {'method':'close', 'fromCloseButton':true});
+				self.close(true);
 			});
 			
 			if ( o.prompt === false ) {
@@ -313,7 +314,7 @@
 			.appendTo(self.thisPage)
 			.bind("click", function(event){
 				if ( !o.forceInput ) {
-					self.caller.trigger('simpledialog', {'method':'close'});
+					self.close();
 				}
 				event.preventDefault();
 			});
