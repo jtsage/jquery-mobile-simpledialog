@@ -39,28 +39,20 @@
 			<p>This shows the simplest form of bool mode.  You can add as many buttons as you want.</p>
 			<p>You clicked: <span id="simpleboolout"></span></p>
 			<script type="text/javascript"> 
-				var xxa = $('#simplebool');
-				xxa.live('vclick', function() {
+				$(document).delegate('#simplebool', 'click', function() {
 					$(this).simpledialog({
-						'mode' : 'bool',
-						'useDialogForceFalse' : false,
-						'cleanOnClose': true,
-						'useModal': true,
+						'mode' : 'blank',
+						'prompt': false,
 						'forceInput': false,
-						'prompt' : 'How about it?',
-						'subTitle' : 'Well, what say you?',
-						'buttons' : {
-							'OK': {
-								click: function () { 
-									$('#simpleboolout').text('OK');
-								}
-							},
-							'Do Nothing': {
-								click: function () { return true; },
-							},
-						}
-					})
+						'useModal': true,
+						'fullHTML' : 
+							"<ul data-role='listview'><li>Some</li><li>List</li><li>Items</li></ul><a data-role='button' href='#' id='simpleclose'>Close</a>"
+						})
+					});
+				$(document).delegate('#simpleclose', 'click', function() {
+					$('#simplebool').simpledialog('close');
 				});
+				
 			</script>
 			<a href="#" id="simplebool" data-role="button">Open Dialog</a>
 			

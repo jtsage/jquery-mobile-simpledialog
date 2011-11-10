@@ -232,12 +232,35 @@
 			caller.bind('orientationchange', self._orientChange);
 		}
 	},
+	_reposition: function() {
+		var self = this,
+			o = this.options,
+			docWinWidth = $(document).width(),
+			docWinHeightOffset = $(window).scrollTop(),
+			docWinHeight = $(window).height(),
+			pickWinHeight = self.pickerContent.outerHeight(),
+			pickWinWidth = self.pickerContent.innerWidth(),
+			
+			pickWinTop = (parseFloat(o.top)+10000) ? parseFloat(o.top) : (docWinHeightOffset + ( docWinHeight / 2 )- ( pickWinHeight / 2)),
+			pickWinLeft = (parseFloat(o.left)+10000) ? parseFloat(o.left) : (( docWinWidth / 2) - ( pickWinWidth / 2));
+					
+		if ( (pickWinHeight + pickWinTop) > $(document).height() ) {
+			pickWinTop = $(document).height() - (pickWinHeight + 2);
+		}
+		if ( pickWinTop < 45 ) { pickWinTop = 45; }
+		
+		self.pickerContent.css({'position': 'absolute', 'top': pickWinTop, 'left': pickWinLeft});
+	},
 	refresh: function() {
 		if ( !this.options.mode === "blank" ) { 
 			return false; 
 		} else {
 			this.pickerContent.html(this.options.fullHTML);
 			this.pickerContent.trigger('create');
+			
+			if ( this.pickerContent.is(':visible') && this.options.useDialog === false ) { 
+				this._reposition();
+			}
 		}
 	},
 	_init: function() {
