@@ -189,7 +189,7 @@
 			pickPageContent = pickPage.find( ".ui-content" );
 			
 			// Bind the master handler.
-			$(caller).delegate(caller, 'simpledialog', self._eventHandler);
+			caller.live('simpledialog', self._eventHandler);
 			
 			// Bind the close button on the DIALOG mode.
 			pickPage.find( ".ui-header a").bind('vclick', function(e) {
@@ -284,7 +284,7 @@
 						if ( o.mode === 'string' ) { self.caller.attr('data-string', pickerInput.find('input').val()); }
 						var val = props.click.apply(self.element[0], arguments);
 						if ( val !== false && props.closeOnClick === true ) {
-							self.caller.trigger('simpledialog', {'method':'close'});
+							self.close();
 						}
 					})
 				);
