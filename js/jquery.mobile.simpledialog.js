@@ -25,6 +25,7 @@
 		fullHTML: null,
 		subTitle: false,
 		inputPassword: false,
+		cleanOnClose: false,
 		
 		left: undefined,
 		top: undefined,
@@ -157,6 +158,18 @@
 		}
 		self.caller.removeClass('ui-btn-active');
 		self.options.isOpen = false;
+		if ( self.options.cleanOnClose === true ) {
+			self.clean();
+		}
+	},
+	clean: function() {
+		// Clean self out of the DOM
+		var self = this;
+		
+		self.pickerContent.remove();
+		self.pickPage.remove();
+		self.screen.remove();
+		self.caller.removeData('simpledialog');
 	},
 	_create: function(){
 		var self = this,
