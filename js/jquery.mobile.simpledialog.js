@@ -26,6 +26,8 @@
 		subTitle: false,
 		inputPassword: false,
 		cleanOnClose: false,
+		animate: true,
+		transition: 'pop',
 		
 		left: undefined,
 		top: undefined,
@@ -115,7 +117,11 @@
 			if ( ( docWinWidth > 400 && !o.useDialogForceTrue ) || o.useDialogForceFalse ) {
 				o.useDialog = false;
 				if ( o.useModal ) {
-					self.screen.fadeIn('slow');
+					if ( o.animate === true ) {
+						self.screen.fadeIn('slow');
+					} else {
+						self.screen.show();
+					}
 				} else {
 					self.screen.removeClass('ui-simpledialog-hidden');
 				}
@@ -129,7 +135,7 @@
 				self.pickPageContent.append(self.pickerContent);
 				self.pickerHeader.hide();
 				self.pickerContent.removeClass('ui-overlay-shadow ui-simpledialog-hidden').css({'top': 'auto', 'left': 'auto', 'marginLeft': 'auto', 'marginRight': 'auto'}).css('zIndex', self.options.zindex);
-				$.mobile.changePage(self.pickPage, {'transition': 'pop'});
+				$.mobile.changePage(self.pickPage, {'transition': (o.animate === true) ? o.transition : 'none' });
 			}
 			this.options.isOpen = true;
 		}
@@ -151,7 +157,11 @@
 			self.thisPage.append(self.pickerContent);
 		} else {
 			if ( self.options.useModal ) {
-				self.screen.fadeOut('slow');
+				if ( self.options.animate === true ) {
+					self.screen.fadeOut('slow');
+				} else { 
+					self.screen.hide();
+				}
 			} else {
 				self.screen.addClass('ui-simpledialog-hidden');
 			}
@@ -191,14 +201,16 @@
 				pickPageContent = null;
 			
 			if (o.mode === 'blank') {
-				ct = $("<div class='ui-simpledialog-container ui-overlay-shadow ui-corner-all ui-simpledialog-hidden pop ui-body-" +
+				ct = $("<div class='ui-simpledialog-container ui-overlay-shadow ui-corner-all ui-simpledialog-hidden "+((o.animate === true)?o.transition:'')+" ui-body-" +
 					o.pickPageTheme + "'></div>");
 				ct.html(o.fullHTML);
 				$('[data-role=content]', pickPage).append(ct);
 			}
 			
 			pickPage.appendTo( $.mobile.pageContainer )
-				.page().css('minHeight', '0px').css('zIndex', o.zindex).addClass('pop');
+				.page().css('minHeight', '0px').css('zIndex', o.zindex);
+				
+			if ( o.animate === true ) { pickPage.addClass('pop'); }
 			
 			pickPageContent = pickPage.find( ".ui-content" );
 			
@@ -275,7 +287,7 @@
 			pickerInput,
 			pickerChoice,
 			screen,
-			pickerContent = $("<div>", { "class": 'ui-simpledialog-container ui-overlay-shadow ui-corner-all ui-simpledialog-hidden pop ui-body-'+o.pickPageTheme}).css({'zIndex': o.zindex, 'width': o.width}),
+			pickerContent = $("<div>", { "class": 'ui-simpledialog-container ui-overlay-shadow ui-corner-all ui-simpledialog-hidden '+((o.animate===true)?o.transition:'')+' ui-body-'+o.pickPageTheme}).css({'zIndex': o.zindex, 'width': o.width}),
 			pickerHeader = $("<div class='ui-simpledialog-header'><h4></h4></div>").appendTo(pickerContent).find("h4");
 			
 		if ( o.mode !== 'blank' ) {
