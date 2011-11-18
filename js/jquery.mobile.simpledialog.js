@@ -255,18 +255,19 @@
 			
 			pickWinTop = (parseFloat(o.top)+10000) ? parseFloat(o.top) : (docWinHeightOffset + ( docWinHeight / 2 )- ( pickWinHeight / 2)),
 			pickWinLeft = (parseFloat(o.left)+10000) ? parseFloat(o.left) : (( docWinWidth / 2) - ( pickWinWidth / 2));
-					
+		
 		if ( (pickWinHeight + pickWinTop) > $(document).height() ) {
 			pickWinTop = $(document).height() - (pickWinHeight + 2);
 		}
 		if ( pickWinTop < 45 ) { pickWinTop = 45; }
 		
-		self.pickerContent.css({'position': 'absolute', 'top': pickWinTop, 'left': pickWinLeft});
+		self.pickerContent.css({'position': 'absolute', 'width': pickWinWidth, 'top': pickWinTop, 'left': pickWinLeft});
 	},
 	refresh: function() {
 		if ( !this.options.mode === "blank" ) { 
 			return false; 
 		} else {
+			this.pickerContent.css('width', 'auto');
 			this.pickerContent.html(this.options.fullHTML);
 			this.pickerContent.trigger('create');
 			
