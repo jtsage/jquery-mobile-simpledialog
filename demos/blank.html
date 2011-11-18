@@ -72,11 +72,8 @@
 						'cleanOnClose': true,
 						'useModal': true,
 						'fullHTML' : 
-							"<ul data-role='listview'><li>Some</li><li>List</li><li>Items</li></ul><a data-role='button' href='#' id='simpleclose'>Close</a>"
-						})
-					});
-				$(document).delegate('#simpleclose', 'click', function() {
-					$('#simpleraw').simpledialog('close');
+							"<ul data-role='listview'><li>Some</li><li>List</li><li>Items</li></ul><a rel='close' data-role='button' href='#' id='simpleclose'>Close</a>"
+					})
 				});
 			</script>
 			<a href="#" id="simpleraw" data-role="button">Open Dialog</a>
@@ -91,11 +88,8 @@ $(document).delegate('#simpleraw', 'click', function() {
         'forceInput': false,
         'useModal':true,
         'fullHTML' : 
-            "&lt;ul data-role='listview'&gt;&lt;li&gt;Some&lt;/li&gt;&lt;li&gt;List&lt;/li&gt;&lt;li&gt;Items&lt;/li&gt;&lt;/ul&gt;&lt;a data-role='button' href='#' id='simpleclose'&gt;Close&lt;/a&gt;"
+            "&lt;ul data-role='listview'&gt;&lt;li&gt;Some&lt;/li&gt;&lt;li&gt;List&lt;/li&gt;&lt;li&gt;Items&lt;/li&gt;&lt;/ul&gt;&lt;a rel='close' data-role='button' href='#' id='simpleclose'&gt;Close&lt;/a&gt;"
     })
-});
-$(document).delegate('#simpleclose', 'click', function() {
-	$('#dialoglink').simpledialog('close');
 });</pre>
 			</div>
 		

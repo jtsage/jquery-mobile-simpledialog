@@ -115,6 +115,12 @@
 		}
 		self.pickerContent.find('.ui-btn-active').removeClass('ui-btn-active');
 		
+		if ( o.mode === 'blank' ) {
+			self.pickerContent.delegate('[rel="close"]', 'click', function() {
+				self.close();
+			});
+		}
+		
 		if ( !o.disabled ) {
 			if ( ( docWinWidth > 400 && !o.useDialogForceTrue ) || o.useDialogForceFalse ) {
 				o.useDialog = false;
