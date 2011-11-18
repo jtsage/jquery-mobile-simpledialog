@@ -40,7 +40,9 @@
 		enterToTrigger: 0,
 		escToTrigger: 1,
 		butObj: [],
-		debug: false
+		debug: false,
+		selects: false,
+		selectparent: []
 	},
 	_eventHandler: function(event, payload) {
 		// Handle all event triggers that have an internal effect
@@ -125,7 +127,18 @@
 				} else {
 					self.screen.removeClass('ui-simpledialog-hidden');
 				}
+				
+				if ( o.mode === 'blank' ) {
+					o.selects = self.pickPage.find('.ui-selectmenu');
+					
+					o.selects.each(function () {
+						o.selectparent.push($(this).closest('.ui-dialog'));
+						$(this).appendTo(self.thisPage);
+					});
+				}
+				
 				self.pickerContent.addClass('ui-overlay-shadow').css('zIndex', self.options.zindex);
+				
 				self.pickerHeader.show();
 				self.pickerContent.css({'position': 'absolute', 'top': pickWinTop, 'left': pickWinLeft}).addClass('ui-overlay-shadow in').removeClass('ui-simpledialog-hidden');
 			} else {
@@ -177,6 +190,14 @@
 		// Clean self out of the DOM
 		var self = this;
 		
+		if ( self.options.selects !== false ) {
+			self.options.selects.each(function() {
+				$(this).remove();
+			});
+			$(self.options.selectparent).each(function() {
+				$(this).remove();
+			});
+		}	
 		self.pickerContent.remove();
 		self.pickPage.remove();
 		self.screen.remove();
