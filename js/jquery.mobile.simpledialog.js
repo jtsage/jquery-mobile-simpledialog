@@ -28,6 +28,7 @@
 		cleanOnClose: false,
 		animate: true,
 		transition: 'pop',
+		clickEvent: 'click',
 		
 		left: undefined,
 		top: undefined,
@@ -61,7 +62,7 @@
 					widget.refresh();
 					break;
 				case 'button':
-					o.butObj[payload.index].trigger('click');
+					o.butObj[payload.index].trigger(o.clickEvent);
 					break;
 			}
 		} 
@@ -116,7 +117,7 @@
 		self.pickerContent.find('.ui-btn-active').removeClass('ui-btn-active');
 		
 		if ( o.mode === 'blank' ) {
-			self.pickerContent.delegate('[rel="close"]', 'click', function() {
+			self.pickerContent.delegate('[rel="close"]', o.clickEvent, function() {
 				self.close();
 			});
 		}
@@ -245,7 +246,7 @@
 			caller.live('simpledialog', self._eventHandler);
 			
 			// Bind the close button on the DIALOG mode.
-			pickPage.find( ".ui-header a").bind('vclick', function(e) {
+			pickPage.find( ".ui-header a").bind(o.clickEvent, function(e) {
 				e.preventDefault();
 				e.stopImmediatePropagation();
 				self.close(true);
@@ -333,10 +334,10 @@
 				pickerInput = $("<div class='ui-simpledialog-controls'><input class='ui-simpledialog-input ui-input-text ui-shadow-inset ui-corner-all ui-body-"+o.pickPageInputTheme+"' type='"+((o.inputPassword===true)?"password":"text")+"' name='pickin' /></div>")
 					.bind('keyup', function(event) {
 						if ( event.keyCode === 13 && o.enterToTrigger !== false )  {
-							o.butObj[o.enterToTrigger].trigger('click');
+							o.butObj[o.enterToTrigger].trigger(o.clickEvent);
 						}
 						if ( event.keyCode === 27 && o.escToTrigger !== false )  {
-							o.butObj[o.escToTrigger].trigger('click');
+							o.butObj[o.escToTrigger].trigger(o.clickEvent);
 						}
 					})
 					.appendTo(pickerContent);
@@ -357,7 +358,7 @@
 					.appendTo(pickerChoice)
 					.buttonMarkup({theme: props.theme, icon: props.icon, iconpos: props.iconpos, corners: true, shadow: true})
 					.unbind("vclick").unbind("click")
-					.bind("click", function() {
+					.bind(o.clickEvent, function() {
 						if ( o.mode === 'string' ) { self.caller.attr('data-string', pickerInput.find('input').val()); }
 						var val = props.click.apply(self.element[0], arguments);
 						if ( val !== false && props.closeOnClick === true ) {
@@ -375,7 +376,7 @@
 		screen = $("<div>", {'class':'ui-simpledialog-screen ui-simpledialog-hidden'})
 			.css({'z-index': o.zindex-1})
 			.appendTo(self.thisPage)
-			.bind("click", function(event){
+			.bind(o.clickEvent, function(event){
 				if ( !o.forceInput ) {
 					self.close();
 				}

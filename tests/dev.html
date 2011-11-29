@@ -45,14 +45,11 @@
 						'prompt': false,
 						'forceInput': false,
 						'useModal': true,
-						'transition': 'slide',
+						'clickEvent': 'vclick',
 						'fullHTML' : 
-							"<ul data-role='listview'><li>Some</li><li>List</li><li>Items</li></ul><a data-role='button' href='#' id='simpleclose'>Close</a>"
+							"<ul data-role='listview'><li>Some</li><li>List</li><li>Items</li></ul><a rel='close' data-role='button' href='#'>Close</a>"
 						})
 					});
-				$(document).delegate('#simpleclose', 'click', function() {
-					$('#simplebool').simpledialog('close');
-				});
 				
 			</script>
 			<a href="#" id="simplebool" data-role="button">Open Dialog</a>
