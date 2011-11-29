@@ -43,7 +43,12 @@
 		butObj: [],
 		debug: false,
 		selects: false,
-		selectparent: []
+		selectparent: [],
+		
+		onCreated:null,
+		onOpened:null,	
+		onClosed:null,
+		onShown:null
 	},
 	_eventHandler: function(event, payload) {
 		// Handle all event triggers that have an internal effect
@@ -192,6 +197,9 @@
 		if ( self.options.cleanOnClose === true && self.options.useDialog === false ) {
 			self.clean();
 		}
+		if (self.options.onClosed && typeof(self.options.onClosed) === "function") {
+		    self.options.onClosed(self);
+		}
 	},
 	clean: function() {
 		// Clean self out of the DOM
@@ -270,6 +278,10 @@
 			$(document).bind('orientationchange', function(e) { caller.trigger('orientationchange'); });
 		
 			caller.bind('orientationchange', self._orientChange);
+			
+			if (self.options.onCreated && typeof(self.options.onCreated) === "function") {
+				self.options.onCreated(self);
+			}
 		}
 	},
 	_reposition: function() {
@@ -319,6 +331,12 @@
 			pickerContent = $("<div>", { "class": 'ui-simpledialog-container ui-overlay-shadow ui-corner-all ui-simpledialog-hidden '+((o.animate===true)?o.transition:'')+' ui-body-'+o.pickPageTheme}).css({'zIndex': o.zindex, 'width': o.width}),
 			pickerHeader = $("<div class='ui-simpledialog-header'><h4></h4></div>").appendTo(pickerContent).find("h4");
 			
+		pickerContent.bind('webkitAnimationEnd', function(){
+			if (self.options.onShown && typeof(self.options.onShown) === "function") {
+				self.options.onShown(self);
+			}
+		});
+			
 		if ( o.mode !== 'blank' ) {
 			if ( o.prompt !== false ) {
 				pickerHeader.html(o.prompt);
@@ -366,6 +384,12 @@
 						}
 					})
 				);
+				
+				if(props.id != null && props.id.length > 0) o.butObj[idx-1].attr('id', props.id);
+				if(props.hidden) o.butObj[idx-1].addClass('button-hidden');
+				
+				if(props.insertSeparator)
+					$("<div class='buttons-separator'>").appendTo(pickerChoice);
 			});
 		} else {
 			pickerContent = self.pickPageContent.contents();

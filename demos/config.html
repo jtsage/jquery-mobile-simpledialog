@@ -65,10 +65,20 @@
 			</ul></li>
 			<li><h3>Buttons</h3><ul data-inset="true">
 				<li data-role="list-divider">'buttons' is an object containing the following options for each button</li>
-				<li><h3>click</h3><p><strong>Purpose:</strong>Function to perform when 'click'ing the button.  Return false to leave dialog open (or set closeOnClick)<br /><strong>Default:</strong> null</li>
-				<li><h3>icon</h3><p><strong>Purpose:</strong>Icon to use on button<br /><strong>Default:</strong> 'check'</li>
-				<li><h3>theme</h3><p><strong>Purpose:</strong>Theme to use for button<br /><strong>Default:</strong> pickPageButtonTheme from above</li>
-				<li><h3>closeOnClick</h3><p><strong>Purpose:</strong>This button will close dialog if click function returns true<br /><strong>Default:</strong> true</li>
+				<li><h3>click</h3><p><strong>Purpose:</strong> Function to perform when 'click'ing the button.  Return false to leave dialog open (or set closeOnClick)<br /><strong>Default:</strong> null</li>
+				<li><h3>icon</h3><p><strong>Purpose:</strong> Icon to use on button<br /><strong>Default:</strong> 'check'</li>
+				<li><h3>theme</h3><p><strong>Purpose:</strong> Theme to use for button<br /><strong>Default:</strong> pickPageButtonTheme from above</li>
+				<li><h3>closeOnClick</h3><p><strong>Purpose:</strong> This button will close dialog if click function returns true<br /><strong>Default:</strong> true</li>
+				<li><h3>id</h3><p><strong>Purpose:</strong> The id of the button<br /><strong>Default:</strong> null</li>
+				<li><h3>hidden</h3><p><strong>Purpose:</strong> Hide the button by default<br /><strong>Default:</strong> false</li>
+				<li><h3>insertSeparator</h3><p><strong>Purpose:</strong> Insert a div seperator after the button<br /><strong>Default:</strong> false</li>
+			</ul></li>
+			<li><h3>Callbacks</h3><ul data-inset="true">
+				<li data-role="list-divider">Callbacks are functions to be run when certain things happen</li>
+				<li><h3>onCreated</h3><p><strong>When:</strong> Runs when the dialog is created</p></li>
+				<li><h3>onOpened</h3><p><strong>When:</strong> Runs when the dialog is opened</p></li>
+				<li><h3>onClosed</h3><p><strong>When:</strong> Runs when the dialog is closed</p></li>
+				<li><h3>onShown</h3><p><strong>When:</strong> Runs when the dialog is opened, after the animation finishes</p></li>
 			</ul></li>
 			<li data-role="list-divider">Working with dialogs</li>
 			<li><h3>butObj</h3><p>Contains an object of the buttons.<br /><strong>Example:</strong> $('element').data('simpledialog').options.butObj[0].trigger('vclick');</p></li>
