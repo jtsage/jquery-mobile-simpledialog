@@ -325,6 +325,7 @@
 	_buildPage: function () {
 		var self = this,
 			o = self.options,
+			idx = null,
 			pickerInput,
 			pickerChoice,
 			screen,
@@ -372,7 +373,7 @@
 					iconpos: 'left',
 					closeOnClick: true
 				}, props);
-				o.butObj.push($("<a href='#'>"+name+"</a>")
+				idx = o.butObj.push($("<a href='#'>"+name+"</a>")
 					.appendTo(pickerChoice)
 					.buttonMarkup({theme: props.theme, icon: props.icon, iconpos: props.iconpos, corners: true, shadow: true})
 					.unbind("vclick").unbind("click")
