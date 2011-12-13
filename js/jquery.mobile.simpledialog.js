@@ -395,7 +395,7 @@
 					})
 				);
 
-				if(props.id !== null && props.id.length > 0) o.butObj[idx-1].attr('id', props.id);
+				if(typeof(props.id) !== 'undefined' && props.id.length > 0) o.butObj[idx-1].attr('id', props.id);
 				if(props.hidden) o.butObj[idx-1].addClass('button-hidden');
 
 				if(props.insertSeparator)
