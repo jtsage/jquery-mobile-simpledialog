@@ -10,6 +10,8 @@
 		pickPageTheme: 'b',
 		pickPageInputTheme: 'e',
 		pickPageButtonTheme: 'a',
+		fullScreen: false,
+		fullScreenAlways: false,
 		
 		disabled: false,
 		zindex: '500',
@@ -106,6 +108,8 @@
 			docWinHeight = $(window).height(),
 			pickWinHeight = self.pickerContent.outerHeight(),
 			pickWinWidth = self.pickerContent.innerWidth(),
+			fullTop = $(window).scrollTop();
+			fullLeft = $(window).scrollLeft();
 			
 			pickWinTop = (parseFloat(o.top)+10000) ? parseFloat(o.top) : (docWinHeightOffset + ( docWinHeight / 2 )- ( pickWinHeight / 2)),
 			pickWinLeft = (parseFloat(o.left)+10000) ? parseFloat(o.left) : (( docWinWidth / 2) - ( pickWinWidth / 2));
@@ -128,16 +132,16 @@
 		}
 		
 		if ( !o.disabled ) {
-			if ( ( docWinWidth > 400 && !o.useDialogForceTrue ) || o.useDialogForceFalse ) {
+			if ( ( docWinWidth > 400 && !o.useDialogForceTrue ) || o.useDialogForceFalse || o.fullScreen ) {
 				o.useDialog = false;
-				if ( o.useModal ) {
-					if ( o.animate === true ) {
-						self.screen.fadeIn('slow');
+				
+				if ( o.fullScreen === false ) {
+					if ( o.useModal === true ) {
+						if ( o.animate === true ) { self.screen.fadeIn('slow'); }
+						else { self.screen.show(); }
 					} else {
-						self.screen.show();
+						self.screen.removeClass('ui-simpledialog-hidden');
 					}
-				} else {
-					self.screen.removeClass('ui-simpledialog-hidden');
 				}
 				
 				if ( o.mode === 'blank' ) {
@@ -152,7 +156,12 @@
 				self.pickerContent.addClass('ui-overlay-shadow').css('zIndex', self.options.zindex);
 				
 				self.pickerHeader.show();
-				self.pickerContent.css({'position': 'absolute', 'top': pickWinTop, 'left': pickWinLeft}).addClass('ui-overlay-shadow in').removeClass('ui-simpledialog-hidden');
+				
+				if ( o.fullScreenAlways || ( o.fullScreen && docWinWidth < 400 ) ) {
+					self.pickerContent.css({'border': '0px !important', 'position': 'absolute', 'top': fullTop, 'left': fullLeft, 'height': docWinHeight, 'width': docWinWidth }).addClass('ui-overlay-shadow in').removeClass('ui-simpledialog-hidden');
+				} else {
+					self.pickerContent.css({'position': 'absolute', 'top': pickWinTop, 'left': pickWinLeft}).addClass('ui-overlay-shadow in').removeClass('ui-simpledialog-hidden');
+				}
 			} else {
 				// prevent the parent page from being removed from the DOM,
 				self.thisPage.unbind( "pagehide.remove" );
