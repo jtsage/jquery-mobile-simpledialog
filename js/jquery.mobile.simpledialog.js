@@ -158,7 +158,7 @@
 				self.pickerHeader.show();
 
 				if ( o.fullScreenAlways || ( o.fullScreen && docWinWidth < 400 ) ) {
-					self.pickerContent.css({'border': '0px !important', 'position': 'absolute', 'top': fullTop, 'left': fullLeft, 'height': docWinHeight, 'width': docWinWidth }).addClass('ui-overlay-shadow in').removeClass('ui-simpledialog-hidden');
+					self.pickerContent.css({'border': '0px !important', 'position': 'absolute', 'top': fullTop, 'left': fullLeft, 'height': docWinHeight, 'width': docWinWidth, 'maxWidth': docWinWidth }).addClass('ui-overlay-shadow in').removeClass('ui-simpledialog-hidden');
 				} else {
 					self.pickerContent.css({'position': 'absolute', 'top': pickWinTop, 'left': pickWinLeft}).addClass('ui-overlay-shadow in').removeClass('ui-simpledialog-hidden');
 				}
@@ -182,7 +182,7 @@
 			if ( fromCloseButton === false ) {
 				$(self.pickPage).dialog('close');
 			}
-			if( ! self.thisPage.data("page").options.domCache ){
+			if( (typeof self.thisPage.jqmData("page")) !== 'undefined' && ! self.thisPage.jqmData("page").options.domCache ){
 				self.thisPage.bind( "pagehide.remove", function() {
 					$(self).remove();
 				});
