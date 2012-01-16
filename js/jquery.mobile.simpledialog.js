@@ -77,7 +77,7 @@
 	_orientChange: function(e) {
 		var self = $(e.currentTarget).data('simpledialog'),
 			o = self.options,
-			docWinWidth = $(document).width(),
+			docWinWidth = $.mobile.activePage.width(),
 			docWinHeightOffset = $(window).scrollTop(),
 			docWinHeight = $(window).height(),
 			pickWinHeight = self.pickerContent.outerHeight(),
@@ -103,7 +103,7 @@
 
 		var self = this,
 			o = this.options,
-			docWinWidth = $(document).width(),
+			docWinWidth = $.mobile.activePage.width(),
 			docWinHeightOffset = $(window).scrollTop(),
 			docWinHeight = $(window).height(),
 			pickWinHeight = self.pickerContent.outerHeight(),
@@ -296,7 +296,7 @@
 	_reposition: function() {
 		var self = this,
 			o = this.options,
-			docWinWidth = $(document).width(),
+			docWinWidth = $.mobile.activePage.width(),
 			docWinHeightOffset = $(window).scrollTop(),
 			docWinHeight = $(window).height(),
 			pickWinHeight = self.pickerContent.outerHeight(),
