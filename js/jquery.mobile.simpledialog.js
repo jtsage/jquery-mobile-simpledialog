@@ -7,6 +7,7 @@
 (function($, undefined ) {
   $.widget( "mobile.simpledialog", $.mobile.widget, {
 	options: {
+		version: '1.0.1-2012020100', // jQueryMobile-YrMoDaySerial
 		pickPageTheme: 'b',
 		pickPageInputTheme: 'e',
 		pickPageButtonTheme: 'a',
