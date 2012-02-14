@@ -7,7 +7,7 @@
 (function($, undefined ) {
   $.widget( "mobile.simpledialog", $.mobile.widget, {
 	options: {
-		version: '1.0.1-2012020100', // jQueryMobile-YrMoDaySerial
+		version: '1.0.1-2012021300', // jQueryMobile-YrMoDaySerial
 		pickPageTheme: 'b',
 		pickPageInputTheme: 'e',
 		pickPageButtonTheme: 'a',
@@ -381,11 +381,13 @@
 					theme: o.pickPageButtonTheme,
 					icon: 'check',
 					iconpos: 'left',
-					closeOnClick: true
+					closeOnClick: true,
+					corners: true,
+					shadow: true
 				}, props);
 				idx = o.butObj.push($("<a href='#'>"+name+"</a>")
 					.appendTo(pickerChoice)
-					.buttonMarkup({theme: props.theme, icon: props.icon, iconpos: props.iconpos, corners: true, shadow: true})
+					.buttonMarkup({theme: props.theme, icon: props.icon, iconpos: props.iconpos, corners: props.corners, shadow: props.shadow})
 					.unbind("vclick").unbind("click")
 					.bind(o.clickEvent, function() {
 						if ( o.mode === 'string' ) { self.caller.attr('data-string', pickerInput.find('input').val()); }
