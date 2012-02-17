@@ -1,5 +1,5 @@
  /*
- * jQuery Mobile Framework : plugin to provide a simple popup (modal) or jQMdialog (page) dialogs. ver2
+ * jQuery Mobile Framework : plugin to provide a dialogs Widget. ver2
  * Copyright (c) JTSage
  * CC 3.0 Attribution.  May be relicensed without permission/notifcation.
  * https://github.com/jtsage/jquery-mobile-simpledialog
@@ -8,7 +8,7 @@
 (function($, undefined ) {
   $.widget( "mobile.simpledialog2", $.mobile.widget, {
 	options: {
-		version: '1.0.1-2012021300', // jQueryMobile-YrMoDaySerial
+		version: '1.0.1-2012021700', // jQueryMobile-YrMoDaySerial
 		mode: 'blank', // or 'button'
 		themeDialog: 'b',
 		themeInput: 'e',
@@ -17,7 +17,6 @@
 		
 		fullScreen: false,
 		fullScreenForce: false,
-		fullScreenLock: false,
 		dialogAllow: false,
 		dialogForce: false,
 		
@@ -66,11 +65,12 @@
 			content = $("<div class='ui-simpledialog-container ui-overlay-shadow ui-corner-all ui-simpledialog-hidden " + 
 					((o.animate === true) ? o.transition : '') + " ui-body-" + o.themeDialog + "'></div>");
 			
-		$.mobile.activePage.jqmData('simpledialogActive', self.element);
+		$.mobile.sdCurrentDialog = self.element;
+		if ( typeof $.mobile.sdLastInput !== 'undefined' ) { delete $.mobile.sdLastInput; }
 		self.internalID = initDate.getTime();
 		self.displayAnchor = $.mobile.activePage.children('.ui-content').first();
 		
-		self.dialogPage = $("<div data-role='dialog' class='ui-simpledialog-dialog' data-theme='" + o.themeDialog + "'><div data-role='content'></div></div>");
+		self.dialogPage = $("<div data-role='dialog' class='ui-simpledialog-dialog' data-theme='" + o.themeDialog + "'><div data-role='header'></div><div data-role='content'></div></div>");
 		self.sdAllContent = self.dialogPage.find('[data-role=content]');
 		
 		content.appendTo(self.sdAllContent);
@@ -127,8 +127,10 @@
 		}
 		
 		if ( o.buttonInput !== false ) {
+			$.mobile.sdLastInput = "";
 			pickerInput.appendTo(buttonHTML);
 			pickerInput.find('input').bind('change', function () {
+				$.mobile.sdLastInput = pickerInput.find('input').first().val();
 				self.displayAnchor.parent().jqmData('simpledialogInput', pickerInput.find('input').first().val());
 			});
 		}
@@ -204,7 +206,7 @@
 			return true;
 		} else {
 			if ( o.fullScreen == true && ( coords.width < 400 || o.fullScreenForce === true ) ) {
-				self.sdIntContent.css({'border': '0px !important', 'position': 'absolute', 'top': coords.fullTop, 'left': coords.fullLeft, 'height': coords.high, 'width': coords.width, 'maxWidth': coords.width }).removeClass('ui-simpledialog-hidden');
+				self.sdIntContent.css({'border': 'none', 'position': 'absolute', 'top': coords.fullTop, 'left': coords.fullLeft, 'height': coords.high, 'width': coords.width, 'maxWidth': coords.width }).removeClass('ui-simpledialog-hidden');
 			} else {
 				self.sdIntContent.css({'position': 'absolute', 'top': coords.winTop, 'left': coords.winLeft}).removeClass('ui-simpledialog-hidden');
 			}
@@ -216,31 +218,37 @@
 			coords = this._getCoords(this);
 		
 		self.sdAllContent.find('.ui-btn-active').removeClass('ui-btn-active');
-		self.sdIntContent.delegate('[rel=close]', o.clickEvent, function () { self.close(); });
-		
-		$(document).bind('orientationchange.simpledialog', {widget:self}, function(e) { self._orientChange(e); });
-		
-		if ( o.resizeListener === true ) {
-			$(window).bind('resize.simpledialog', {widget:self}, function (e) { self._orientChange(e); });
-		}
-		
-		/*if ( o.mode === 'blank' ) {
-				o.selects = self.pickPage.find('.ui-selectmenu');
-
-				o.selects.each(function () {
-					o.selectparent.push($(this).closest('.ui-dialog'));
-					$(this).appendTo(self.thisPage);
-				});
-		}*/
+		self.sdIntContent.delegate('[rel=close]', o.clickEvent, function (e) { e.preventDefault(); self.close(); });
 		
 		if ( ( o.dialogAllow === true && coords.width < 400 ) || o.dialogForce ) {
 			self.isDialog = true;
+			
+			if ( o.mode === 'blank' ) { // Custom selects do not play well with dialog mode - so, we turn them off.
+				self.sdIntContent.find('select').each(function () {
+					$(this).jqmData('nativeMenu', true);
+				});
+			}
+			
 			self.displayAnchor.parent().unbind("pagehide.remove");
 			self.sdAllContent.append(self.sdIntContent);
-			self.sdIntContent.removeClass('ui-simpledialog-hidden ui-overlay-shadow').css({'top': 'auto', 'left': 'auto', 'marginLeft': 'auto', 'marginRight': 'auto', 'zIndex': o.zindex});
+			self.sdAllContent.trigger('create');
+			if ( o.headerText !== false ) {
+				self.sdHeader.find('h1').appendTo(self.dialogPage.find('[data-role=header]'));
+				self.sdIntContent.find('.ui-header').empty().removeClass();
+			}
+			if ( o.headerClose === true ) {
+				self.dialogPage.find('.ui-header a').bind('click', function () {
+					setTimeout("$.mobile.sdCurrentDialog.data('simpledialog2').destroy();", 1000);
+				});
+			} else {
+				self.dialogPage.find('.ui-header a').remove();
+			}
+			
+			self.sdIntContent.removeClass().css({'top': 'auto', 'width': 'auto', 'left': 'auto', 'marginLeft': 'auto', 'marginRight': 'auto', 'zIndex': o.zindex});
 			$.mobile.changePage(self.dialogPage, {'transition': (o.animate === true) ? o.transition : 'none'});
 		} else {
 			self.isDialog = false;
+			self.selects = [];
 			
 			if ( o.fullScreen === false ) {
 				if ( o.showModal === true && o.animate === true ) { self.screen.fadeIn('slow'); }
@@ -250,9 +258,14 @@
 			self.sdIntContent.addClass('ui-overlay-shadow in').css('zIndex', o.zindex).trigger('create');
 			
 			if ( o.fullScreen == true && ( coords.width < 400 || o.fullScreenForce === true ) ) {
-				self.sdIntContent.css({'border': '0px !important', 'position': 'absolute', 'top': coords.fullTop, 'left': coords.fullLeft, 'height': coords.high, 'width': coords.width, 'maxWidth': coords.width }).removeClass('ui-simpledialog-hidden');
+				self.sdIntContent.removeClass('ui-simpledialog-container').css({'border': 'none', 'position': 'absolute', 'top': coords.fullTop, 'left': coords.fullLeft, 'height': coords.high, 'width': coords.width, 'maxWidth': coords.width }).removeClass('ui-simpledialog-hidden');
 			} else {
 				self.sdIntContent.css({'position': 'absolute', 'top': coords.winTop, 'left': coords.winLeft}).removeClass('ui-simpledialog-hidden');
+			}
+			
+			$(document).bind('orientationchange.simpledialog', {widget:self}, function(e) { self._orientChange(e); });
+			if ( o.resizeListener === true ) {
+				$(window).bind('resize.simpledialog', {widget:self}, function (e) { self._orientChange(e); });
 			}
 		}
 		if ( $.isFunction(o.callbackOpen) ) {
@@ -278,6 +291,8 @@
 				self.screen.addClass('ui-simpledialog-hidden');
 			}
 			self.sdIntContent.addClass('ui-simpledialog-hidden').removeClass('in');
+			$(document).unbind('orientationchange.simpledialog');
+			if ( self.options.resizeListener === true ) { $(window).unbind('resize.simpledialog'); }
 		}
 		
 		$.mobile.activePage.find('.ui-btn-active').removeClass('ui-btn-active');
@@ -287,18 +302,30 @@
 		}
 		
 		if ( self.isDialog ) {
-			setTimeout("$.mobile.activePage.jqmData('simpledialogActive').data('simpledialog2').destroy();", 1000);
+			setTimeout("$.mobile.sdCurrentDialog.data('simpledialog2').destroy();", 1000);
 		} else {
 			self.destroy();
 		}
 	},
 	destroy: function() {
-		$(this.sdIntContent).remove();
-		$(this.dialogPage).remove();
-		$(this.screen).remove();
-		$(document).unbind('simpledialog.'+this.internalID);
-		$.mobile.activePage.jqmRemoveData('simpledialogActive');
-		$.Widget.prototype.destroy.call(this);
+		var self = this;
+		
+		if ( self.options.mode === 'blank' ) {
+			$.mobile.sdCurrentDialog.data('simpledialog2').sdIntContent.find('select').each(function() {
+				if ( $(this).data('nativeMenu') == false ) {
+					$(this).data('selectmenu').menuPage.remove();
+					$(this).data('selectmenu').screen.remove();
+					$(this).data('selectmenu').listbox.remove();
+				}
+			});
+		}
+		
+		$(self.sdIntContent).remove();
+		$(self.dialogPage).remove();
+		$(self.screen).remove();
+		$(document).unbind('simpledialog.'+self.internalID);
+		delete $.mobile.sdCurrentDialog;
+		$.Widget.prototype.destroy.call(self);
 	},
 	updateBlank: function (newHTML) {
 		var self = this,
