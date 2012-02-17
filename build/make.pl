@@ -2,8 +2,9 @@
 
 $javapath = `which java`;
 chomp $javapath;
+$version = '';
 
-$slugtext = "/*\n * jQuery Mobile Framework : plugin to provide a simple popup (modal) or jQMdialog (page) Dialog widget.\n * Copyright (c) JTSage\n * CC 3.0 Attribution.  May be relicensed without permission/notifcation.\n * https://github.com/jtsage/jquery-mobile-simpledialog\n */\n";
+$slugtext = "/*\n * jQuery Mobile Framework : plugin to provide a simple Dialog widget.\n * Copyright (c) JTSage\n * CC 3.0 Attribution.  May be relicensed without permission/notifcation.\n * https://github.com/jtsage/jquery-mobile-simpledialog\n */\n";
 
 @files = (
 	'jquery.mobile.simpledialog.min.js',
@@ -24,14 +25,16 @@ if ( $ARGV[0] ) {
 		print "DONE.\n";
 	}
 	elsif ( $ARGV[0] eq 'all' ) {
-		print "Making all usual variants...\n";
+		if ( defined($ARGV[1]) ) {
+			$version = "-".$ARGV[1];
+		}
+		print "Making all usual variants... ($version)\n";
 		make_master();
 		$last = (stat "../js/jquery.mobile.simpledialog.js")[9];
 		open OUTFILE, ">current_build.txt";
 		print OUTFILE $last;
 		close OUTFILE;
 		print "BUILD FINISHED.\n";
-		do_slug("./jquery.mobile.simpledialog.min.js");
 	}
 	elsif ( $ARGV[0] eq 'check' ) {
 		$last = (stat "../js/jquery.mobile.simpledialog.js")[9];
@@ -94,14 +97,22 @@ sub do_slug {
 }
 
 sub make_master {
+	if ( $version ne '' ) {
+		system("cp", "../js/jquery.mobile.simpledialog.js", "jquery.mobile.simpledialog".$version.".js");
+		system("cp", "../js/jquery.mobile.simpledialog2.js", "jquery.mobile.simpledialog2".$version.".js");
+		system("cp", "../css/jquery.mobile.simpledialog.css", "jquery.mobile.simpledialog".$version.".css");
+	}
 	print "Build :-: Compressed Script... ";
 	print "compressing... ";
-	system($javapath, "-jar", "../external/yuicompressor-2.4.6.jar", "-o", "./jquery.mobile.simpledialog.min.js", "../js/jquery.mobile.simpledialog.js");
-	system($javapath, "-jar", "../external/yuicompressor-2.4.6.jar", "-o", "./jquery.mobile.simpledialog2.min.js", "../js/jquery.mobile.simpledialog2.js");
+	system($javapath, "-jar", "../external/yuicompressor-2.4.6.jar", "-o", "./jquery.mobile.simpledialog".$version.".min.js", "../js/jquery.mobile.simpledialog.js");
+	system($javapath, "-jar", "../external/yuicompressor-2.4.6.jar", "-o", "./jquery.mobile.simpledialog2".$version.".min.js", "../js/jquery.mobile.simpledialog2.js");
 	print "DONE.\n";
 	print "Build :-: CSS File... ";
 	print "compressing... ";
-	system($javapath, "-jar", "../external/yuicompressor-2.4.6.jar", "-o", "./jquery.mobile.simpledialog.min.css", "../css/jquery.mobile.simpledialog.css");
+	system($javapath, "-jar", "../external/yuicompressor-2.4.6.jar", "-o", "./jquery.mobile.simpledialog".$version.".min.css", "../css/jquery.mobile.simpledialog.css");
+	do_slug("./jquery.mobile.simpledialog".$version.".min.js");
+	do_slug("./jquery.mobile.simpledialog2".$version.".min.js");
+	do_slug("./jquery.mobile.simpledialog".$version.".min.css");
 	print "DONE.\n";
 }
 
