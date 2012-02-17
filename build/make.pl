@@ -7,6 +7,7 @@ $slugtext = "/*\n * jQuery Mobile Framework : plugin to provide a simple popup (
 
 @files = (
 	'jquery.mobile.simpledialog.min.js',
+	'jquery.mobile.simpledialog2.min.js',
 	'jquery.mobile.simpledialog.min.css');
 
 if ( $javapath eq '' ) {
@@ -96,6 +97,7 @@ sub make_master {
 	print "Build :-: Compressed Script... ";
 	print "compressing... ";
 	system($javapath, "-jar", "../external/yuicompressor-2.4.6.jar", "-o", "./jquery.mobile.simpledialog.min.js", "../js/jquery.mobile.simpledialog.js");
+	system($javapath, "-jar", "../external/yuicompressor-2.4.6.jar", "-o", "./jquery.mobile.simpledialog2.min.js", "../js/jquery.mobile.simpledialog2.js");
 	print "DONE.\n";
 	print "Build :-: CSS File... ";
 	print "compressing... ";
