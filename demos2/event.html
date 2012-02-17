@@ -1,0 +1,71 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>jQueryMobile - SimpleDialog Demos</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog2.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jQM-SimpleDialog/demos2/extras.js"></script>
+
+	
+	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
+	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
+	<script type="text/javascript">
+		$('div').live('pagecreate', function() {
+			prettyPrint()
+		});
+	</script>
+	
+</head>
+<body>
+<div data-role="page" data-theme="c" id="events"> 
+	<div data-role="header"> 
+		<h1>jQueryMobile - SimpleDialog2</h1>
+		<a href="index.html" data-icon="home" data-iconpos="notext">Home</a>
+	</div>
+	<div data-role="content" data-theme="c">
+		<div class="content-secondary"> 
+	
+			<div id="jqm-homeheader"> 
+				<h1 id="jqm-logo"><img src="jquery-logo-sd.png" alt="jQuery Mobile Framework :: SimpleDialog" /></h1> 
+				<p>A Popup Dialog Box for jQueryMobile</p> 
+				
+			</div> 
+			
+			<div class="sidebar"></div>
+			
+		</div><!--/content-primary-->	
+		
+		<div class="content-primary"> 
+			
+			<h2>Public Data Access</h2> 
+			<p>SimpleDialog2 has a few publicly available data points:</p>
+			<ul data-role="listview" data-inset="true">
+				<li><h3>$.mobile.sdCurrentDialog</h3><p>The calling element of the currently open dialog (removed on close)</p></li>
+				<li><h3>$.mobile.sdLastInput</h3><p>The value from the input element in Button->Input mode</p></li>
+			</ul>
+			<p>Common function tasks:</p>
+			<ul data-role="listview" data-inset="true">
+				<li><h3>$.mobile.sdCurrentDialog.trigger('simpledialog', {'method':'close'});</h3><p>Immediatly close the open dialog</p></li>
+				<li><h3>$.mobile.sdCurrentDialog.trigger('simpledialog', {'method':'html', 'content':'--'});</h3><p>Replace the HTML in an *open* blank dialog with "content"</p></li>
+				<li><h3>$(document).trigger('simpledialog', {'method':'close'});</h3><p>Immediatly close all open dialogs (Note: nesting probably is a bad, bad idea)</p></li>
+			</ul>
+			
+			<h2>Other Goodies</h2>
+			<p>When using the "blank" mode, you can include a link/button/element with rel='close' in the HTML - when clicked, it will automatically close the dialog.</p>
+			
+		</div> 
+		
+	</div>
+	<div data-role="footer">
+	</div>
+</div>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>jQueryMobile - SimpleDialog Demos</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog2.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jQM-SimpleDialog/demos2/extras.js"></script>
+
+	
+	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
+	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
+	<script type="text/javascript">
+		$('div').live('pagecreate', function() {
+			prettyPrint()
+		});
+	</script>
+	
+</head>
+<body>
+<div data-role="page" data-theme="c" id="popper"> 
+	<div data-role="header"> 
+		<h1>jQueryMobile - SimpleDialog2</h1>
+		<a href="index.html" data-icon="home" data-iconpos="notext">Home</a>
+	</div>
+	<div data-role="content" data-theme="c">
+		<div class="content-secondary"> 
+	
+			<div id="jqm-homeheader"> 
+				<h1 id="jqm-logo"><img src="jquery-logo-sd.png" alt="jQuery Mobile Framework :: SimpleDialog" /></h1> 
+				<p>A Popup Dialog Box for jQueryMobile</p> 
+				
+			</div> 
+			
+			<div class="sidebar"></div>
+			
+		</div><!--/content-primary-->	
+		
+		<div class="content-primary"> 
+			
+			<h2>Popup Mode</h2>
+			<p>This shows standard, default popup only mode.</p>
+			<script type="text/javascript"> 
+				$(document).delegate('#popupbut', 'click', function() {
+					$('<div>').simpledialog2({
+						mode: 'blank',
+						headerText: 'Some Stuff',
+						headerClose: true,
+						blankContent : 
+							"<ul data-role='listview'><li>Some</li><li>List</li><li>Items</li></ul>"+
+							"<a rel='close' data-role='button' href='#'>Close</a>"
+					})
+				});
+			</script>
+			<a href="#" id="popupbut" data-role="button">Open Dialog</a>
+			<strong>HTML</strong><pre class="prettyprint">
+&lt;a href="#" id="opendialog" data-role="button"&gt;Open Dialog&lt;/a&gt;</pre>
+
+			<strong>jQuery</strong><pre class="prettyprint">
+$(document).delegate('#opendialog', 'click', function() {
+  // NOTE: The selector can be whatever you like, so long as it is an HTML element.
+  //       If you prefer, it can be a member of the current page, or an anonymous div
+  //       like shown.
+  $('&lt;div&gt;').simpledialog2({
+    mode: 'blank',
+    headerText: 'Some Stuff',
+    headerClose: true,
+    blankContent : 
+      "&lt;ul data-role='listview'&gt;&lt;li&gt;Some&lt;/li&gt;&lt;li&gt;List&lt;/li&gt;&lt;li&gt;Items&lt;/li&gt;&lt;/ul&gt;"+
+      // NOTE: the use of rel="close" causes this button to close the dialog.
+      "&lt;a rel='close' data-role='button' href='#'&gt;Close&lt;/a&gt;"
+  })
+})</pre>
+		
+		
+			
+		</div> 
+		
+		
+	</div>
+	<div data-role="footer">
+	</div>
+</div>
+</html>

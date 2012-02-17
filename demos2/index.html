@@ -1,0 +1,76 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>jQueryMobile - SimpleDialog Demos</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog2.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jQM-SimpleDialog/demos2/extras.js"></script>
+
+	
+	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
+	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
+	<script type="text/javascript">
+		$('div').live('pagecreate', function() {
+			prettyPrint()
+		});
+	</script>
+	
+</head>
+<body>
+<div data-role="page" data-theme="c" id="main"> 
+	<div data-role="header"> 
+		<h1>jQueryMobile - SimpleDialog2</h1>
+		<a href="index.html" data-icon="home" data-iconpos="notext">Home</a>
+	</div>
+	<div data-role="content" data-theme="c">
+		<div class="content-secondary"> 
+	
+			<div id="jqm-homeheader"> 
+				<h1 id="jqm-logo"><img src="jquery-logo-sd.png" alt="jQuery Mobile Framework :: SimpleDialog" /></h1> 
+				<p>A Popup Dialog Box for jQueryMobile</p> 
+				
+			</div> 
+			
+			<div class="sidebar"></div>
+			
+		</div><!--/content-primary-->	
+		
+		<div class="content-primary"> 
+			
+			<p>SimpleDialog2 is a re-imagining of the original SimpleDialog - it's purpose is to provide an easy programmers interface to dialog popups.</p>
+			
+			<dl><dt>Multiple Operation Modes</dt>
+				<dd>Button List Mode - Generate a dialog with a list of buttons</dd>
+				<dd>Button Input Mode - Generate a dialog with a list of buttons and user input</dd>
+				<dd>Freeform Mode - Generate a dailog containing your own custom HTML source</dd>
+			</dl>
+			
+			<dl><dt>Multiple Display Modes</dt>
+				<dd>Popup Mode - Pop the window "over" the current content<dd>
+				<dd>jQM Dialog - Use the native jQM dialog page interface</dd>
+				<dd>Fullscreen - Use a proprietary full viewport pop "over" method</dd>
+			</dl>
+			
+			<dl><dt>Collect User Data</dd>
+				<dd>SimpleDialog2 has the ability to collect a user prompt and return it back to your script</dd>
+			</dl>
+			
+			<dl><dt>Clean DOM Operation</dt>
+				<dd>Perhaps the biggest change from SimpleDialog - SimpleDialog2 takes great pains in cleaning itself completly from the DOM when it closes.  These are *single* use dialogs.</dd>
+			</dl>
+		</div> 
+		
+	</div>
+	<div data-role="footer">
+	</div>
+</div>
+</html>

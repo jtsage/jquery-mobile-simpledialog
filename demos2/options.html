@@ -1,0 +1,272 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>jQueryMobile - SimpleDialog Demos</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog2.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jQM-SimpleDialog/demos2/extras.js"></script>
+
+	
+	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
+	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
+	<script type="text/javascript">
+		$('div').live('pagecreate', function() {
+			prettyPrint()
+		});
+	</script>
+	
+</head>
+<body>
+<div data-role="page" data-theme="c" id="opts"> 
+	<div data-role="header"> 
+		<h1>jQueryMobile - SimpleDialog2</h1>
+		<a href="index.html" data-icon="home" data-iconpos="notext">Home</a>
+	</div>
+	<div data-role="content" data-theme="c">
+		<h2>Available Options</h2>
+		
+		<ul data-role="listview" data-inset="true" class="options" data-dividertheme="a">
+			<li><h3>mode</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>'blank'</dd></dl>
+				<p class="desc">Mode of operation.</p>
+				<p><strong>Valid options:</strong> ['blank', 'button']</p>
+			</li>
+			<li data-role="list-divider">Themeing</li>
+			<li><h3>themeDialog</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>'b'</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>all</dd></dl>
+				<p class="desc">Theme for the dialog.</p>
+			</li>
+			<li><h3>themeHeader</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>'b'</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>all</dd></dl>
+				<p class="desc">Theme for the header, if used.</p>
+			</li>
+			<li><h3>themeInput</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>'e'</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>button</dd></dl>
+				<p class="desc">Theme for the input element in Button->Input mode.</p>
+			</li>
+			<li><h3>themeButtonDefault</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>'a'</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>button</dd></dl>
+				<p class="desc">Default theme for the buttons in Button->Input mode.</p>
+			</li>
+			<li><h3>themeDialog</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Boolean</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>false</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>all</dd></dl>
+				<p class="desc">Theme for the dialog.</p>
+			</li>
+			<li><h3>animate</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Boolean</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>true</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>all</dd></dl>
+				<p class="desc">Use animations on transition.</p>
+			</li>
+			<li><h3>transition</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>'pop'</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>all</dd></dl>
+				<p class="desc">Animation style for transitions.</p>
+			</li>
+			<li><h3>width</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>'280px'</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>all</dd></dl>
+				<p class="desc">Width of the dialog popup.</p>
+			</li>
+			<li><h3>top</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>false</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>all</dd></dl>
+				<p class="desc">Force position of top of popup.</p>
+			</li>
+			<li><h3>left</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>false</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>all</dd></dl>
+				<p class="desc">Force position of left of popup.</p>
+			</li>
+			<li data-role="list-divider">Header Options</li>
+			<li><h3>headerText</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>false</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>all</dd></dl>
+				<p class="desc">Text to use in the header.  If this, and headerButton are FALSE, no header is used.</p>
+			</li>
+			<li><h3>headerClose</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Boolean</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>false</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>all</dd></dl>
+				<p class="desc">Show a close button in the header.  If this, and headerText are FALSE, no header is used.</p>
+			</li>
+			<li data-role="list-divider">Display Options</li>
+			<li><h3>dialogAllow</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Boolean</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>false</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>all</dd></dl>
+				<p class="desc">Allow use of jQM native dialogs if screen size &lt; 400px.</p>
+			</li>
+			<li><h3>dialogForce</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Boolean</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>false</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>all</dd></dl>
+				<p class="desc">Always use the jQM native dialogs.</p>
+			</li>
+			<li><h3>fullScreen</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Boolean</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>false</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>all</dd></dl>
+				<p class="desc">Allow the use of the custom full screen display is screen size &lt; 400px.</p>
+			</li>
+			<li><h3>fullScreenForce</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Boolean</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>false</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>all</dd></dl>
+				<p class="desc">Always use the custom full screen display</p>
+			</li>
+			<li><h3>showModal</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Boolean</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>true</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>all</dd></dl>
+				<p class="desc">Blank the background when using popup mode, modal style.</p>
+			</li>
+			<li><h3>forceInput</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Boolean</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>false</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>all</dd></dl>
+				<p class="desc">Do not close dialog when clicking outside the dialog.</p>
+			</li>
+			<li data-role="list-divider">Internal Operation</li>
+			<li><h3>clickEvent</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>'click'</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>all</dd></dl>
+				<p class="desc">Event to bind all actions to (including header close button, buttons in button mode, and outside dialog trap).</p>
+			</li>
+			<li><h3>zIndex</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Number</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>500</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>all</dd></dl>
+				<p class="desc">z-Index of the popup element (For fixed headers/footers, this might need to be extreamly high).</p>
+			</li>
+			<li><h3>resizeListener</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Boolean</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>true</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>all</dd></dl>
+				<p class="desc">Listen to resize events, and reposition accordingly (Desktop operation really).</p>
+			</li>
+			<li data-role="list-divider">Internal Operation</li>
+			<li><h3>callbackOpen</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Function</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>false</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>all</dd></dl>
+				<p class="desc">Function to run when the dialog opens.</p>
+			</li>
+			<li><h3>callbackClose</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Function</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>false</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>all</dd></dl>
+				<p class="desc">Function to run when the dialog closes, before cleanup is done.</p>
+			</li>
+			<li data-role="list-divider">Blank Mode Options</li>
+			<li><h3>blankContent</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>false</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>blank</dd></dl>
+				<p class="desc">A String of the HTML you wish to use in the blank/freeform mode.  This may also be a jQuery object.</p>
+			</li>
+			<li data-role="list-divider">Button Mode Options</li>
+			<li><h3>buttonPrompt</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>false</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>button</dd></dl>
+				<p class="desc">A string to use as a prompt in the dialog, HTML allowed, wrapper in a &lt;p&gt;</p>
+			</li>
+			<li><h3>buttonInput</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Boolean</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>false</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>button</dd></dl>
+				<p class="desc">Show an input box in the dialog.</p>
+			</li>
+			<li><h3>buttonPassword</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Boolean</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>false</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>button</dd></dl>
+				<p class="desc">Show an input box of type password in the dialog - buttonInput must also be TRUE.</p>
+			</li>
+			<li><h3>button</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Boolean</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>false</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>button</dd></dl>
+				<p class="desc">An object of buttons - see below for individual button options.</p>
+			</li>
+			<li data-role="list-divider">Button Object Options</li>
+			<li><h3>id</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>false</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>button object</dd></dl>
+				<p class="desc">The HTML ID of the button.  If false, one is generated.</p>
+			</li>
+			<li><h3>theme</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>inherited</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>button object</dd></dl>
+				<p class="desc">The theme of the button.</p>
+			</li>
+			<li><h3>icon</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>'check'</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>button object</dd></dl>
+				<p class="desc">The icon of the button.</p>
+			</li>
+			<li><h3>iconpos</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>'left'</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>button object</dd></dl>
+				<p class="desc">The position of the icon on the button.</p>
+			</li>
+			<li><h3>corners</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Boolean</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>true</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>button object</dd></dl>
+				<p class="desc">If true, round the corners of the button.</p>
+			</li>
+			<li><h3>shadow</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Boolean</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>true</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>button object</dd></dl>
+				<p class="desc">If true, button will have a drop shadow.</p>
+			</li>
+			<li><h3>close</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Boolean</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>true</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>button object</dd></dl>
+				<p class="desc">Clicking this button will close the dialog.</p>
+			</li>
+			<li><h3>click</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Function</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>button object</dd></dl>
+				<p class="desc">A function to run when this button is clicked.  If it returns false, the dialog will not close.</p>
+			</li>
+		</ul>
+	</div>
+	<div data-role="footer">
+	</div>
+</div>
+</html>
