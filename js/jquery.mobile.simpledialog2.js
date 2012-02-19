@@ -28,6 +28,7 @@
 		blankContent: false,
 		
 		resizeListener: true,
+		safeNuke: true,
 		forceInput: true,
 		showModal: true,
 		animate: true,
@@ -46,7 +47,6 @@
 		var self = e.data.widget,
 			o = e.data.widget.options;
 		
-		console.log('yo');
 		if ( ! e.isPropagationStopped() ) {
 			switch (p.method) {
 				case 'close':
@@ -60,12 +60,12 @@
 	},
 	_create: function () {
 		var self = this,
-			o = $.extend(this.options, this.element.data('options')),
+			o = $.extend(this.options, this.element.jqmData('options')),
 			initDate = new Date(),
 			content = $("<div class='ui-simpledialog-container ui-overlay-shadow ui-corner-all ui-simpledialog-hidden " + 
 					((o.animate === true) ? o.transition : '') + " ui-body-" + o.themeDialog + "'></div>");
 			
-		$.mobile.sdCurrentDialog = self.element;
+		$.mobile.sdCurrentDialog = self;
 		if ( typeof $.mobile.sdLastInput !== 'undefined' ) { delete $.mobile.sdLastInput; }
 		self.internalID = initDate.getTime();
 		self.displayAnchor = $.mobile.activePage.children('.ui-content').first();
@@ -88,6 +88,9 @@
 		}
 		
 		if ( o.mode === 'blank' ) {
+			if ( o.blankContent === true ) {
+				o.blankContent = self.element.html();
+			}
 			$(o.blankContent).appendTo(self.sdIntContent);
 		} else if ( o.mode === 'button' ) {
 			self._makeButtons().appendTo(self.sdIntContent);
@@ -123,7 +126,7 @@
 			
 		
 		if ( o.buttonPrompt !== false ) {
-			$("<p class='ui-simpledialog-subtitle'>"+o.buttonPrompt+"</p>").appendTo(buttonHTML);
+			self.buttonPromptText = $("<p class='ui-simpledialog-subtitle'>"+o.buttonPrompt+"</p>").appendTo(buttonHTML);
 		}
 		
 		if ( o.buttonInput !== false ) {
@@ -131,7 +134,7 @@
 			pickerInput.appendTo(buttonHTML);
 			pickerInput.find('input').bind('change', function () {
 				$.mobile.sdLastInput = pickerInput.find('input').first().val();
-				self.displayAnchor.parent().jqmData('simpledialogInput', pickerInput.find('input').first().val());
+				self.thisInput = pickerInput.find('input').first().val()
 			});
 		}
 		
@@ -164,7 +167,8 @@
 				}).unbind("vclick click")
 				.bind(o.clickEvent, function() {
 					if ( o.buttonInput ) { self.sdIntContent.find('input [name=pickin]').trigger('change'); }
-					var returnValue = props.click.apply(self.element[0], arguments);
+					//var returnValue = props.click.apply(self.element[0], arguments);
+					var returnValue = props.click.apply(self, arguments);
 					if ( returnValue !== false && props.close === true ) {
 						self.close();
 					}
@@ -238,7 +242,7 @@
 			}
 			if ( o.headerClose === true ) {
 				self.dialogPage.find('.ui-header a').bind('click', function () {
-					setTimeout("$.mobile.sdCurrentDialog.data('simpledialog2').destroy();", 1000);
+					setTimeout("$.mobile.sdCurrentDialog.destroy();", 1000);
 				});
 			} else {
 				self.dialogPage.find('.ui-header a').remove();
@@ -269,7 +273,7 @@
 			}
 		}
 		if ( $.isFunction(o.callbackOpen) ) {
-			o.callbackOpen(self);
+			o.callbackOpen.apply(self, arguments);
 		}
 	},
 	close: function() {
@@ -297,21 +301,22 @@
 		
 		$.mobile.activePage.find('.ui-btn-active').removeClass('ui-btn-active');
 		
-		if ( $.isFunction(self.options.callbackOpen) ) {
-			self.options.callbackClose(self);
+		if ( $.isFunction(self.options.callbackClose) ) {
+			self.options.callbackClose.apply(self, arguments);
 		}
 		
-		if ( self.isDialog ) {
-			setTimeout("$.mobile.sdCurrentDialog.data('simpledialog2').destroy();", 1000);
+		if ( self.isDialog === true || self.options.animate === true ) {
+			setTimeout("$.mobile.sdCurrentDialog.destroy();", 1000);
 		} else {
 			self.destroy();
 		}
 	},
 	destroy: function() {
-		var self = this;
+		var self = this,
+			ele = self.element;
 		
 		if ( self.options.mode === 'blank' ) {
-			$.mobile.sdCurrentDialog.data('simpledialog2').sdIntContent.find('select').each(function() {
+			$.mobile.sdCurrentDialog.sdIntContent.find('select').each(function() {
 				if ( $(this).data('nativeMenu') == false ) {
 					$(this).data('selectmenu').menuPage.remove();
 					$(this).data('selectmenu').screen.remove();
@@ -326,6 +331,9 @@
 		$(document).unbind('simpledialog.'+self.internalID);
 		delete $.mobile.sdCurrentDialog;
 		$.Widget.prototype.destroy.call(self);
+		if ( self.options.safeNuke === true && $(ele).parents().length === 0 && $(ele).contents().length === 0 ) {
+			ele.remove();
+		}
 	},
 	updateBlank: function (newHTML) {
 		var self = this,

@@ -26,7 +26,7 @@
 	
 </head>
 <body>
-<div data-role="page" data-theme="c" id="events"> 
+<div data-role="page" data-theme="c" id="blank"> 
 	<div data-role="header"> 
 		<h1>jQueryMobile - SimpleDialog2</h1>
 		<a href="index.html" data-icon="home" data-iconpos="notext">Home</a>
@@ -46,23 +46,37 @@
 		
 		<div class="content-primary"> 
 			
-			<h2>Public Data Access</h2> 
-			<p>SimpleDialog2 has a few publicly available data points:</p>
-			<ul data-role="listview" data-inset="true">
-				<li><h3>$.mobile.sdCurrentDialog</h3><p>The currently running dialog object - refernce removed on close.</p></li>
-				<li><h3>$.mobile.sdLastInput</h3><p>The value from the input element in Button->Input mode</p></li>
-			</ul>
-			<p>Common function tasks:</p>
-			<ul data-role="listview" data-inset="true">
-				<li><h3>$.mobile.sdCurrentDialog.close();</h3><p>Immediatly close the open dialog</p></li>
-				<li><h3>$.mobile.sdCurrentDialog.updateBlank('-NEW HTML-');</h3><p>Replace the HTML in an *open* blank dialog with "content"</p></li>
-				<li><h3>$(document).trigger('simpledialog', {'method':'close'});</h3><p>Immediatly close all open dialogs (Note: nesting probably is a bad, bad idea)</p></li>
-			</ul>
-			
-			<h2>Other Goodies</h2>
-			<p>When using the "blank" mode, you can include a link/button/element with rel='close' in the HTML - when clicked, it will automatically close the dialog.</p>
+			<h2>Blank Mode "Inlining"</h2>
+			<p>Should you choose to need it, blank mode can also be inlined into your page.  More to follow, but with the right combination of selectors and events, you could probably not have to do per-page javascript (or a page switching master file).</p>
+			<script type="text/javascript"> 
+				$(document).delegate('#inliner', 'click', function() {
+					$('#inlinecontent').simpledialog2();
+				});
+			</script>
+			<a href="#" id="inliner" data-role="button">Open Dialog</a>
+			<div id="inlinecontent" style="display:none" data-options='{"mode":"blank","headerText":"Yo","headerClose":true,"blankContent":true}'>
+				<ul data-role='listview'><li>Some</li><li>List</li><li>Items</li></ul><a rel='close' data-role='button' href='#'>Close</a>
+			</div>
+			<strong>HTML</strong><pre class="prettyprint">
+&lt;a href="#" id="opendialog" data-role="button"&gt;Open Dialog&lt;/a&gt;
+
+&lt;!--NOTE: blankContent is set to TRUE, and the content goes IN the div. --&gt;
+&lt;div id="inlinecontent" style="display:none" 
+  data-options='{"mode":"blank","headerText":"Yo","headerClose":true,"blankContent":true}'&gt;
+
+    &lt;ul data-role='listview'&gt;&lt;li&gt;Some&lt;/li&gt;&lt;li&gt;List&lt;/li&gt;&lt;li&gt;Items&lt;/li&gt;&lt;/ul&gt;
+    &lt;a rel='close' data-role='button' href='#'&gt;Close&lt;/a&gt;
+&lt;/div&gt;</pre>
+
+			<strong>jQuery</strong><pre class="prettyprint">
+$(document).delegate('#opendialog', 'click', function() {
+  // NOTE: The selector is the hidden DIV element.
+  $('#inlinecontent').simpledialog2();
+})</pre>
+		
 			
 		</div> 
+		
 		
 	</div>
 	<div data-role="footer">

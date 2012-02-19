@@ -57,6 +57,23 @@
 &lt;script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog2.min.js"&gt;&lt;/script&gt;</pre></dd>
 		</dl>
+		<h2>A Note on selectors:</h2>
+		<p>In SimpleDialog, it was very important to choose a selector that was on the visible page, and unique.  This is no longer true.  SimpleDialog2 frankly does not care.  At all.  Ever. A few possibilities:</p>
+		<dl>
+			<dt>document</dt>
+			<dd>The document object.  This works just fine.  It will attach to the document, and clean up after itself.  Cleanly.</dd>
+			<dd><pre class="prettyprint">$(document).simpledialog2({ ... });</pre></dd>
+			<dt>html or body</dt>
+			<dd>Main elements in the page - again, no issue, it'll clean up when it closes.</dd>
+			<dd><pre class="prettyprint">$('html').simpledialog2({ ... });</pre></dd>
+			<dt>Any existing ID</dt>
+			<dd>Any one will do.  Be careful never to attach to anything that might exist more than once, like a class - odd things will happen.</dd>
+			<dd><pre class="prettyprint">$('#ALinkOrDivorSpanorWhatever').simpledialog2({ ... });</pre></dd>
+			<dt>An anonymous element</dt>
+			<dd>Why not just create a temporary node?  SimpleDialog2 will even delete it for you when it finishes (see option: safeNuke).  Please note the use of full HTML with TAGS! (if you do 'div', it's selecting all div's, not making one)</dd>
+			<dd><pre class="prettyprint">$('&lt;div&gt;').simpledialog2({ ... });</pre></dd>
+		</dl>
+		
 	</div>
 	<div data-role="footer">
 	</div>

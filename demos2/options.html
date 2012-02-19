@@ -171,6 +171,12 @@
 				<dl data-role="none" class="option"><dt>Modes:</dt><dd>all</dd></dl>
 				<p class="desc">Listen to resize events, and reposition accordingly (Desktop operation really).</p>
 			</li>
+			<li><h3>safeNuke</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Boolean</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>true</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>all</dd></dl>
+				<p class="desc">Try and detect if you used an unattached, empty node as your selector - if you did, delete it for you after the dialog closes. (If you run into really odd errors, try turning this off, then contact J.T. - he'll want to know.)</p>
+			</li>
 			<li data-role="list-divider">Internal Operation</li>
 			<li><h3>callbackOpen</h3>
 				<dl data-role="none" class="option"><dt>Type:</dt><dd>Function</dd></dl>
@@ -189,7 +195,7 @@
 				<dl data-role="none" class="option"><dt>Type:</dt><dd>String</dd></dl>
 				<dl data-role="none" class="option"><dt>Default:</dt><dd>false</dd></dl>
 				<dl data-role="none" class="option"><dt>Modes:</dt><dd>blank</dd></dl>
-				<p class="desc">A String of the HTML you wish to use in the blank/freeform mode.  This may also be a jQuery object.</p>
+				<p class="desc">A String of the HTML you wish to use in the blank/freeform mode.  This may also be a jQuery object.  Set to true if inlining options.</p>
 			</li>
 			<li data-role="list-divider">Button Mode Options</li>
 			<li><h3>buttonPrompt</h3>

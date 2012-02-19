@@ -15,13 +15,16 @@ $(":jqmData(role)=page").live('pageinit', function(e) {
 				'<li><a href="install.html">Download &amp; Use</a></li>' +
 				'<li><a href="event.html">Methods, Events and Data</a></li>' +
 				'<li><a href="options.html">Options Matrix</a></li>' +
+			//	'<li><a href="buttonapi.html">Programming Buttons</a></li>' +
 				'<li data-theme="a">Operation Modes</li>' +
 				'<li><a href="button.html">Button / Input Mode</a></li>' +
 				'<li><a href="blank.html">Blank (Freeform) Mode</a></li>' +
+				'<li><a href="blankin.html">Blank Mode "Inlining"</a></li>' +
 				'<li data-theme="a">Display Modes</li>' +
 				'<li><a href="popup.html">Standard Pop-up</a></li>' +
 				'<li><a href="dialog.html">jQM Dialog Page</a></li>' +
-				'<li><a href="fullscreen.html">Fullscreen Display</a></li>'),
+				'<li><a href="fullscreen.html">Fullscreen Display</a></li>' +
+			''),
 	sidebarstart = $('<ul data-corners="false" data-role="listview" data-inset="true" data-theme="c" data-dividertheme="f"></ul>');
 	
 	if ( currentPage.jqmData('role') === 'page' ) {
