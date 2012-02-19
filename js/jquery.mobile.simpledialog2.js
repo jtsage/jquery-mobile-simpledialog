@@ -40,7 +40,9 @@
 		top: false,
 		
 		callbackOpen: false,
+		callbackOpenArgs: [],
 		callbackClose: false,
+		callbackCloseArgs: [],
 	},
 	_eventHandler: function(e,p) {
 		// Handle the triggers
@@ -152,6 +154,7 @@
 				iconpos: 'left',
 				corners: 'true',
 				shadow : 'true',
+				args   : [],
 				close  : true
 			}, props);
 			
@@ -168,7 +171,7 @@
 				.bind(o.clickEvent, function() {
 					if ( o.buttonInput ) { self.sdIntContent.find('input [name=pickin]').trigger('change'); }
 					//var returnValue = props.click.apply(self.element[0], arguments);
-					var returnValue = props.click.apply(self, arguments);
+					var returnValue = props.click.apply(self, $.merge(arguments, props.args));
 					if ( returnValue !== false && props.close === true ) {
 						self.close();
 					}
@@ -215,6 +218,10 @@
 				self.sdIntContent.css({'position': 'absolute', 'top': coords.winTop, 'left': coords.winLeft}).removeClass('ui-simpledialog-hidden');
 			}
 		}
+	},
+	repos: function() {
+		var bsEvent = { data: {widget:this}, stopPropagation: function () { return true; }};
+		this._orientChange(bsEvent);
 	},
 	open: function() {
 		var self = this,
@@ -273,7 +280,7 @@
 			}
 		}
 		if ( $.isFunction(o.callbackOpen) ) {
-			o.callbackOpen.apply(self, arguments);
+			o.callbackOpen.apply(self, o.callbackOpenArgs);
 		}
 	},
 	close: function() {
@@ -302,7 +309,7 @@
 		$.mobile.activePage.find('.ui-btn-active').removeClass('ui-btn-active');
 		
 		if ( $.isFunction(self.options.callbackClose) ) {
-			self.options.callbackClose.apply(self, arguments);
+			self.options.callbackClose.apply(self, self.options.callbackCloseArgs);
 		}
 		
 		if ( self.isDialog === true || self.options.animate === true ) {

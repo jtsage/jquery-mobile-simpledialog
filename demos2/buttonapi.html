@@ -1,0 +1,88 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>jQueryMobile - SimpleDialog Demos</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
+	
+	<!-- NOTE: Script load order is significant! -->
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog2.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jQM-SimpleDialog/demos2/extras.js"></script>
+
+	
+	<script type="text/javascript" src="http://dev.jtsage.com/gpretty/prettify.js"></script>
+	<link type="text/css" href="http://dev.jtsage.com/gpretty/prettify.css" rel="stylesheet" />
+	<script type="text/javascript">
+		$('div').live('pagecreate', function() {
+			prettyPrint()
+		});
+	</script>
+	
+</head>
+<body>
+<div data-role="page" data-theme="c" id="blank"> 
+	<div data-role="header"> 
+		<h1>jQueryMobile - SimpleDialog2</h1>
+		<a href="index.html" data-icon="home" data-iconpos="notext">Home</a>
+	</div>
+	<div data-role="content" data-theme="c">
+		<div class="content-secondary"> 
+	
+			<div id="jqm-homeheader"> 
+				<h1 id="jqm-logo"><img src="jquery-logo-sd.png" alt="jQuery Mobile Framework :: SimpleDialog" /></h1> 
+				<p>A Popup Dialog Box for jQueryMobile</p> 
+				
+			</div> 
+			
+			<div class="sidebar"></div>
+			
+		</div><!--/content-primary-->	
+		
+		<div class="content-primary"> 
+			
+			<h2>Button API</h2>
+			<p>When writing functions for each button, there are a number of widget methods available to you.  They are all available in the keyword "this", which I prefer the convention of assigining to "self".  e.g.:</p>
+			
+			<strong>jQuery</strong><pre class="prettyprint">
+$(document).delegate('#opendialog', 'click', function() {
+  // NOTE: The selector is the hidden DIV element.
+  $('#inlinecontent').simpledialog2({ ...
+    button: {
+      'ok': {
+        'click':
+          function () {
+            var self = this;
+          }
+....</pre>
+			<p>Inside the self object, you will find the following:</p>
+			
+			<ul data-role="listview" data-inset="true">
+				<li data-role="list-divider">Objects</li>
+				<li><h3>displayAnchor</h3><p>A jQuery object that contains the calling element</p></li>
+				<li><h3>internalID</h3><p>An integer definition used by this dialog.  Used for cleanup and event namespacing</p></li>
+				<li><h3>options</h3><p>A object that contains all the calling options (or the default)</p></li>
+				<li><h3>screen</h3><p>A jQuery object that contains "screen", or full page element that sits behind the dialog - it can either fade the background, or just catch clicks outside the dialog</p></li>
+				<li><h3>sdIntContent</h3><p>A jQuery object that contains the HTML of the body of the dialog (and the header in popup/fullscreen mode).  You can change this directly, but it is here for search / replace operations really.</p></li>
+				<li><h3>thisInput</h3><p>A variable that contains the value of the buttonInput field.</p></li>
+				<li data-role="list-divider">Methods</li>
+				<li><h3>close()</h3><p>Closes (and destorys) the dialog.</p></li>
+				<li><h3>updateBlank(--NewHTML--)</h3><p>Takes 1 argument, the new HTML for a currently open 'blank' mode dialog.</p></li>
+				<li><h3>repos()</h3><p>Force the dialog to re-calculate it's on-screen position.</p></li>
+				<li data-role="list-divider">Arguments</li>
+				<li><h3>arguments[0]</h3><p>The first argument (you can name it if you like), is the event that was called.  Not sure why this might be helpful, but it is there. </p></li>
+				<li><h3>arguments[1]+</h3><p>These can be set with the 'args' property - you can name them too if you like.</p></li>
+			</ul>
+		</div> 
+		
+		
+	</div>
+	<div data-role="footer">
+	</div>
+</div>
+</html>

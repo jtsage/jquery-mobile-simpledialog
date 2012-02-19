@@ -184,11 +184,23 @@
 				<dl data-role="none" class="option"><dt>Modes:</dt><dd>all</dd></dl>
 				<p class="desc">Function to run when the dialog opens.</p>
 			</li>
+			<li><h3>callbackOpenArgs</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Array</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>empty</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>all</dd></dl>
+				<p class="desc">An array of arguments to send to the open callback.  Remember 'this' is the widget object.</p>
+			</li>
 			<li><h3>callbackClose</h3>
 				<dl data-role="none" class="option"><dt>Type:</dt><dd>Function</dd></dl>
 				<dl data-role="none" class="option"><dt>Default:</dt><dd>false</dd></dl>
 				<dl data-role="none" class="option"><dt>Modes:</dt><dd>all</dd></dl>
 				<p class="desc">Function to run when the dialog closes, before cleanup is done.</p>
+			</li>
+			<li><h3>callbackCloseArgs</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Array</dd></dl>
+				<dl data-role="none" class="option"><dt>Default:</dt><dd>empty</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>all</dd></dl>
+				<p class="desc">An array of arguments to send to the close callback.  Remember 'this' is the widget object.</p>
 			</li>
 			<li data-role="list-divider">Blank Mode Options</li>
 			<li><h3>blankContent</h3>
@@ -269,6 +281,11 @@
 				<dl data-role="none" class="option"><dt>Type:</dt><dd>Function</dd></dl>
 				<dl data-role="none" class="option"><dt>Modes:</dt><dd>button object</dd></dl>
 				<p class="desc">A function to run when this button is clicked.  If it returns false, the dialog will not close.</p>
+			</li>
+			<li><h3>args</h3>
+				<dl data-role="none" class="option"><dt>Type:</dt><dd>Array</dd></dl>
+				<dl data-role="none" class="option"><dt>Modes:</dt><dd>button object</dd></dl>
+				<p class="desc">An array of arguments to *also* pass to the click function.  The first argument is always the event.</p>
 			</li>
 		</ul>
 	</div>
