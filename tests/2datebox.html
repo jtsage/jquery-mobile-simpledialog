@@ -15,6 +15,7 @@
 	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog2.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.js"></script>
 	<script type="text/javascript" src="http://dev.jtsage.com/jQM-SimpleDialog/demos2/extras.js"></script>
 	
 </head>
@@ -32,16 +33,14 @@
 				
 			</div> 
 	
-			<p class="intro">SimpleDialog aims to be a replacement for javascript dialog(), written for jQM.</p> 
+			<p class="intro">SimpleDialog2 aims to be a replacement for javascript dialog(), written for jQM.</p> 
 			
 		</div><!--/content-primary-->	
 		
 		<div class="content-primary"> 
-			<h2>Fullscreen Mode</h2>
-			<p>The world looks mighty good to me, cause Tootsie Rolls are all I see. Whatever it is I think I see, becomes a Tootsie Roll to me! Tootsie Roll how I love your chocolatey chew, Tootsie Roll I think I'm in love with you. Whatever it is I think I see, becomes a Tootsie Roll to me!</p>
-			<p>The world looks mighty good to me, cause Tootsie Rolls are all I see. Whatever it is I think I see, becomes a Tootsie Roll to me! Tootsie Roll how I love your chocolatey chew, Tootsie Roll I think I'm in love with you. Whatever it is I think I see, becomes a Tootsie Roll to me!</p>
-			<p>The world looks mighty good to me, cause Tootsie Rolls are all I see. Whatever it is I think I see, becomes a Tootsie Roll to me! Tootsie Roll how I love your chocolatey chew, Tootsie Roll I think I'm in love with you. Whatever it is I think I see, becomes a Tootsie Roll to me!</p>
-			<p>You clicked: <span id="simpleboolout"></span></p>
+			<h2>w/ DateBox Demo</h2>
+			<p>And yes, the date is required in there...</p>
+			<p>You set this date: <span id="outputspan"></span></p>
 			<script type="text/javascript"> 
 									
 				$(document).delegate('#simplebool', 'click', function() {
@@ -50,38 +49,19 @@
 						
 						headerText: 'Bullshit',
 						headerClose: true,
-						
-						buttonInput: true,
-						//buttonPassword: true,
-						buttonPrompt : "Some Other Bullshit",
-						
-						'buttons' : {
-							'ok': {
-								'args' : ['something','else'],
-								'click': function (e) {
-									console.log(this.buttonPromptText.text());
-									console.log(arguments);
-									console.log(e);
-									return true;
-								}
-							},
-							'cancel': {
-								'click': function () { return true; }
-							}
-						},
 							
-						//dialogEnable: true,
-						//dialogForce: true,
 						forceInput: false,
 						showModal: true,
 						clickEvent: 'vclick',
-						//fullScreen: true,
-						//fullScreenForce: true,
-						blankContent : 
-							"<ul data-role='listview'><li>Some</li><li>List</li><li>Items</li></ul><a rel='close' data-role='button' href='#'>Close</a>",
-						callbackOpenArgs: ['some', 'shit'],
-						callbackOpen: function () { console.log(this); console.log(arguments); },
-						
+						callbackClose: function () {
+							var theValue = this.sdIntContent.find('#datebox').val();
+							if ( theValue == '' ) { return false; }
+							else { $('#outputspan').text(theValue); }
+						},
+						blankContent: 
+							'<style>.ui-input-datebox { width: 90%; margin-left:auto; margin-right:auto; display:block; }</style>'+
+							'<input name="datebox" type="text" data-role="datebox" data-options=\'{"mode": "flipbox"}\' id="datebox" />' +
+							"<a rel='close' data-role='button' href='#'>Close</a>"
 						})
 						
 					});
