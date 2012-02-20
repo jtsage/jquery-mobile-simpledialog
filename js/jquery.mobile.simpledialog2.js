@@ -42,7 +42,7 @@
 		callbackOpen: false,
 		callbackOpenArgs: [],
 		callbackClose: false,
-		callbackCloseArgs: [],
+		callbackCloseArgs: []
 	},
 	_eventHandler: function(e,p) {
 		// Handle the triggers
@@ -81,7 +81,7 @@
 		self.sdIntContent.css('width', o.width);
 		
 		if ( o.headerText !== false || o.headerClose !== false ) {
-			self.sdHeader = $('<div class="ui-header ui-bar-'+o.themeHeader+'"></div>');
+			self.sdHeader = $('<div style="margin-bottom: 4px;" class="ui-header ui-bar-'+o.themeHeader+'"></div>');
 			if ( o.headerClose === true ) {
 				$("<a class='ui-btn-left' rel='close' href='#'>Close</a>").appendTo(self.sdHeader).buttonMarkup({ theme  : o.themeHeader, icon   : 'delete', iconpos: 'notext', corners: true, shadow : true });
 			}
@@ -136,7 +136,7 @@
 			pickerInput.appendTo(buttonHTML);
 			pickerInput.find('input').bind('change', function () {
 				$.mobile.sdLastInput = pickerInput.find('input').first().val();
-				self.thisInput = pickerInput.find('input').first().val()
+				self.thisInput = pickerInput.find('input').first().val();
 			});
 		}
 		
@@ -212,7 +212,7 @@
 		if ( self.isDialog === true ) {
 			return true;
 		} else {
-			if ( o.fullScreen == true && ( coords.width < 400 || o.fullScreenForce === true ) ) {
+			if ( o.fullScreen === true && ( coords.width < 400 || o.fullScreenForce === true ) ) {
 				self.sdIntContent.css({'border': 'none', 'position': 'absolute', 'top': coords.fullTop, 'left': coords.fullLeft, 'height': coords.high, 'width': coords.width, 'maxWidth': coords.width }).removeClass('ui-simpledialog-hidden');
 			} else {
 				self.sdIntContent.css({'position': 'absolute', 'top': coords.winTop, 'left': coords.winLeft}).removeClass('ui-simpledialog-hidden');
@@ -268,7 +268,7 @@
 			
 			self.sdIntContent.addClass('ui-overlay-shadow in').css('zIndex', o.zindex).trigger('create');
 			
-			if ( o.fullScreen == true && ( coords.width < 400 || o.fullScreenForce === true ) ) {
+			if ( o.fullScreen === true && ( coords.width < 400 || o.fullScreenForce === true ) ) {
 				self.sdIntContent.removeClass('ui-simpledialog-container').css({'border': 'none', 'position': 'absolute', 'top': coords.fullTop, 'left': coords.fullLeft, 'height': coords.high, 'width': coords.width, 'maxWidth': coords.width }).removeClass('ui-simpledialog-hidden');
 			} else {
 				self.sdIntContent.css({'position': 'absolute', 'top': coords.winTop, 'left': coords.winLeft}).removeClass('ui-simpledialog-hidden');
@@ -284,8 +284,13 @@
 		}
 	},
 	close: function() {
-		var self = this;
-
+		var self = this, retty;
+		
+		if ( $.isFunction(self.options.callbackClose) ) {
+			retty = self.options.callbackClose.apply(self, self.options.callbackCloseArgs);
+			if ( retty === false ) { return false; }
+		}
+		
 		if ( self.isDialog ) {
 			$(self.dialogPage).dialog('close');
 			self.sdIntContent.addClass('ui-simpledialog-hidden');
@@ -363,6 +368,6 @@
 	},
 	_init: function() {
 		this.open();
-	},
+	}
   });
 })( jQuery );
