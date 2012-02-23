@@ -8,7 +8,7 @@
 (function($, undefined ) {
   $.widget( "mobile.simpledialog2", $.mobile.widget, {
 	options: {
-		version: '1.0.1-2012021900', // jQueryMobile-YrMoDaySerial
+		version: '1.0.1-2012022300', // jQueryMobile-YrMoDaySerial
 		mode: 'blank', // or 'button'
 		themeDialog: 'b',
 		themeInput: 'e',
@@ -312,10 +312,6 @@
 		}
 		
 		$.mobile.activePage.find('.ui-btn-active').removeClass('ui-btn-active');
-		
-		if ( $.isFunction(self.options.callbackClose) ) {
-			self.options.callbackClose.apply(self, self.options.callbackCloseArgs);
-		}
 		
 		if ( self.isDialog === true || self.options.animate === true ) {
 			setTimeout("$.mobile.sdCurrentDialog.destroy();", 1000);
