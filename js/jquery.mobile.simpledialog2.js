@@ -8,11 +8,11 @@
 (function($, undefined ) {
   $.widget( "mobile.simpledialog2", $.mobile.widget, {
 	options: {
-		version: '1.0.1-2012022300', // jQueryMobile-YrMoDaySerial
+		version: '1.0.1-2012022700', // jQueryMobile-YrMoDaySerial
 		mode: 'blank', // or 'button'
 		themeDialog: 'b',
-		themeInput: 'e',
-		themeButtonDefault: 'a',
+		themeInput: false,
+		themeButtonDefault: false,
 		themeHeader: 'a',
 		
 		fullScreen: false,
@@ -67,6 +67,8 @@
 			content = $("<div class='ui-simpledialog-container ui-overlay-shadow ui-corner-all ui-simpledialog-hidden " + 
 					((o.animate === true) ? o.transition : '') + " ui-body-" + o.themeDialog + "'></div>");
 			
+		if ( o.themeButtonDefault === false ) { o.themeButtonDefault = o.themeDialog; }
+		if ( o.themeInput === false ) { o.themeInput = o.themeDialog; }
 		$.mobile.sdCurrentDialog = self;
 		if ( typeof $.mobile.sdLastInput !== 'undefined' ) { delete $.mobile.sdLastInput; }
 		self.internalID = initDate.getTime();
