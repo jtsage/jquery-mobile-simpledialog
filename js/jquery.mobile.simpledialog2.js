@@ -313,8 +313,6 @@
 			if ( self.options.resizeListener === true ) { $(window).unbind('resize.simpledialog'); }
 		}
 		
-		$.mobile.activePage.find('.ui-btn-active').removeClass('ui-btn-active');
-		
 		if ( self.isDialog === true || self.options.animate === true ) {
 			setTimeout("$.mobile.sdCurrentDialog.destroy();", 1000);
 		} else {

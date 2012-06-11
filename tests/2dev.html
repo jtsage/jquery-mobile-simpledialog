@@ -43,11 +43,12 @@
 			<p>The world looks mighty good to me, cause Tootsie Rolls are all I see. Whatever it is I think I see, becomes a Tootsie Roll to me! Tootsie Roll how I love your chocolatey chew, Tootsie Roll I think I'm in love with you. Whatever it is I think I see, becomes a Tootsie Roll to me!</p>
 			<p>You clicked: <span id="simpleboolout"></span></p>
 			<script type="text/javascript"> 
+				x = function () { console.log(this); }
 									
 				$(document).delegate('#simplebool', 'click', function() {
 					$('<div>').simpledialog2({
-						mode : 'blank',
-						
+						mode : 'button',
+						//themeDialog: 'd',
 						headerText: 'Bullshit',
 						headerClose: true,
 						
@@ -58,15 +59,16 @@
 						'buttons' : {
 							'ok': {
 								'args' : ['something','else'],
+								'icon' : false,
 								'click': function (e) {
-									console.log(this.buttonPromptText.text());
-									console.log(arguments);
-									console.log(e);
+									//console.log(this.buttonPromptText.text());
+									//console.log(arguments);
+									//console.log(e);
 									return true;
 								}
 							},
 							'cancel': {
-								'click': function () { return true; }
+								'click': x 
 							}
 						},
 							
@@ -79,8 +81,8 @@
 						//fullScreenForce: true,
 						blankContent : 
 							"<ul data-role='listview'><li>Some</li><li>List</li><li>Items</li></ul><a rel='close' data-role='button' href='#'>Close</a>",
-						callbackOpenArgs: ['some', 'shit'],
-						callbackOpen: function () { console.log(this); console.log(arguments); },
+						//callbackOpenArgs: ['some', 'shit'],
+						callbackClose: function () { console.log(this); console.log(arguments); },
 						
 						})
 						
