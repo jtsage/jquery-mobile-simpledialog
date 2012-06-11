@@ -314,7 +314,8 @@
 		}
 		
 		if ( self.isDialog === true || self.options.animate === true ) {
-			setTimeout("$.mobile.sdCurrentDialog.destroy();", 1000);
+			//setTimeout("$.mobile.sdCurrentDialog.destroy();", 1000);
+			setTimeout(function(that) { return function () { that.destroy(); };}(self), 1000);
 		} else {
 			self.destroy();
 		}
