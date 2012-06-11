@@ -27,6 +27,7 @@
 		buttonInputDefault: false,
 		buttonPassword: false,
 		blankContent: false,
+		blankContentAdopt: false,
 		
 		resizeListener: true,
 		safeNuke: true,
@@ -94,7 +95,11 @@
 		
 		if ( o.mode === 'blank' ) {
 			if ( o.blankContent === true ) {
-				o.blankContent = self.element.html();
+				if ( o.blankContentAdopt === true ) {
+					o.blankContent = self.element.children();
+				} else {
+					o.blankContent = self.element.html();
+				}
 			}
 			$(o.blankContent).appendTo(self.sdIntContent);
 		} else if ( o.mode === 'button' ) {

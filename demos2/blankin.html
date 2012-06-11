@@ -73,6 +73,58 @@ $(document).delegate('#opendialog', 'click', function() {
   // NOTE: The selector is the hidden DIV element.
   $('#inlinecontent').simpledialog2();
 })</pre>
+
+
+			<h2>Blank Mode "Inlining" - Adoption</h2>
+			<p>Should you choose to need it, blank mode can also be inlined into your page.  More to follow, but with the right combination of selectors and events, you could probably not have to do per-page javascript (or a page switching master file).</p>
+			<p>This method "adopts" the children, rather than HTML - useful for bringing forms in.  This is probably the method you want.</p>
+			
+			<script type="text/javascript"> 
+				$(document).delegate('#inliner2', 'click', function() {
+					$('#inlinecontent2').simpledialog2();
+				});
+			</script>
+			<a href="#" id="inliner2" data-role="button">Open Dialog</a>
+			<div id="inlinecontent2" style="display: none;" 
+					data-options='{"mode":"blank","blankContent":true,"blankContentAdopt":true,"headerText":"Select language","headerClose":false}'>
+   
+				<div data-role="fieldcontain">
+					<fieldset data-role="controlgroup">
+						<legend>Please select your langauge</legend>   
+						
+						<input type="radio" name="selectedLanguage" id="selectedLanguageEnglsih" value="en" />
+						<label for="selectedLanguageEnglsih">English</label>
+						<input type="radio" name="selectedLanguage" id="selectedLanguageSpanish" value="es" />
+						<label for="selectedLanguageSpanish">Español</label>
+					</fieldset>
+					<a rel='close' data-role='button' href='#'> Close </a>
+				</div>
+			</div>
+			<strong>HTML</strong><pre class="prettyprint">
+&lt;a href="#" id="opendialog" data-role="button"&gt;Open Dialog&lt;/a&gt;
+
+&lt;!--NOTE: blankContent is set to TRUE, and the content goes IN the div. --&gt;
+%lt;div id="inlinecontent" style="display: none;" 
+  data-options='{"mode":"blank","blankContent":true,"blankContentAdopt":true,"headerText":"Select language","headerClose":false}'%gt;
+   
+  %lt;div data-role="fieldcontain"%gt;
+    %lt;fieldset data-role="controlgroup"%gt;
+      %lt;legend%gt;Please select your langauge%lt;/legend%gt;   
+						
+      %lt;input type="radio" name="selectedLanguage" id="selectedLanguageEnglsih" value="en" /%gt;
+      %lt;label for="selectedLanguageEnglsih"%gt;English%lt;/label%gt;
+      %lt;input type="radio" name="selectedLanguage" id="selectedLanguageSpanish" value="es" /%gt;
+      %lt;label for="selectedLanguageSpanish"%gt;Español%lt;/label%gt;
+    %lt;/fieldset%gt;
+    %lt;a rel='close' data-role='button' href='#'%gt; Close %lt;/a%gt;
+  %lt;/div%gt;
+%lt;/div%gt;</pre>
+
+			<strong>jQuery</strong><pre class="prettyprint">
+$(document).delegate('#opendialog', 'click', function() {
+  // NOTE: The selector is the hidden DIV element.
+  $('#inlinecontent').simpledialog2();
+})</pre>
 		
 			
 		</div> 
