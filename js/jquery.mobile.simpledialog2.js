@@ -24,6 +24,7 @@
 		headerClose: false,
 		buttonPrompt: false,
 		buttonInput: false,
+		buttonInputDefault: false,
 		buttonPassword: false,
 		blankContent: false,
 		
@@ -125,7 +126,7 @@
 		var self = this,
 			o = self.options,
 			buttonHTML = $('<div></div>'),
-			pickerInput = $("<div class='ui-simpledialog-controls'><input class='ui-simpledialog-input ui-input-text ui-shadow-inset ui-corner-all ui-body-"+o.themeInput+"' type='"+((o.buttonPassword===true)?"password":"text")+"' name='pickin' /></div>"),
+			pickerInput = $("<div class='ui-simpledialog-controls'><input class='ui-simpledialog-input ui-input-text ui-shadow-inset ui-corner-all ui-body-"+o.themeInput+"' type='"+((o.buttonPassword===true)?"password":"text")+"' value='"+((o.buttonInputDefault!==false)?o.buttonInputDefault.replace( '"', "&#34;" ).replace( "'", "&#39;" ):"")+"' name='pickin' /></div>"),
 			pickerChoice = $("<div>", { "class":'ui-simpledialog-controls' });
 			
 		
