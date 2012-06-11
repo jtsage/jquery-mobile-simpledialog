@@ -297,9 +297,10 @@
 			$(self.dialogPage).dialog('close');
 			self.sdIntContent.addClass('ui-simpledialog-hidden');
 			self.sdIntContent.appendTo(self.displayAnchor.parent());
-			if ( $.mobile.activePage.jqmData("page").options.domCache != true ) {
+			var activepage = $.mobile.activePage;
+			if (!activepage.jqmData("page").options.domCache && activepage.is(":jqmData(external-page='true')")) {
 				$.mobile.activePage.bind("pagehide.remove", function () {
-					$(this).remove();
+          				$(this).remove();
 				});
 			}
 		} else {
