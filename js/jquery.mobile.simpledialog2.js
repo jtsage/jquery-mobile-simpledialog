@@ -297,7 +297,7 @@
 			$(self.dialogPage).dialog('close');
 			self.sdIntContent.addClass('ui-simpledialog-hidden');
 			self.sdIntContent.appendTo(self.displayAnchor.parent());
-			if ( $.mobile.activePage.jqmData("page").options.domCache != true ) {
+			if ( $.mobile.activePage.jqmData("page").options.domCache != true && $.mobile.activePage.is(":jqmData(external-page='true')") ) {
 				$.mobile.activePage.bind("pagehide.remove", function () {
 					$(this).remove();
 				});
