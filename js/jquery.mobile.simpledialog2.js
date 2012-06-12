@@ -76,7 +76,7 @@
 		self.internalID = initDate.getTime();
 		self.displayAnchor = $.mobile.activePage.children('.ui-content').first();
 		
-		self.dialogPage = $("<div data-role='dialog' class='ui-simpledialog-dialog' data-theme='" + o.themeDialog + "'><div data-role='header'></div><div data-role='content'></div></div>");
+		self.dialogPage = $("<div data-role='dialog' data-theme='" + o.themeDialog + "'><div data-role='header'></div><div data-role='content'></div></div>");
 		self.sdAllContent = self.dialogPage.find('[data-role=content]');
 		
 		content.appendTo(self.sdAllContent);
