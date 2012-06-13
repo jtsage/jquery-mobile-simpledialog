@@ -178,7 +178,6 @@
 				}).unbind("vclick click")
 				.bind(o.clickEvent, function() {
 					if ( o.buttonInput ) { self.sdIntContent.find('input [name=pickin]').trigger('change'); }
-					//var returnValue = props.click.apply(self.element[0], arguments);
 					var returnValue = props.click.apply(self, $.merge(arguments, props.args));
 					if ( returnValue !== false && props.close === true ) {
 						self.close();
@@ -292,7 +291,7 @@
 		}
 	},
 	close: function() {
-		var self = this, retty;
+		var self = this, o = this.options, retty;
 		
 		if ( $.isFunction(self.options.callbackClose) ) {
 			retty = self.options.callbackClose.apply(self, self.options.callbackCloseArgs);
@@ -319,8 +318,12 @@
 			if ( self.options.resizeListener === true ) { $(window).unbind('resize.simpledialog'); }
 		}
 		
+		if ( o.mode === 'blank' && o.blankContent !== false && o.blankContentAdopt === true ) {
+			self.element.append(o.blankContent);
+			o.blankContent = true;
+		}
+		
 		if ( self.isDialog === true || self.options.animate === true ) {
-			//setTimeout("$.mobile.sdCurrentDialog.destroy();", 1000);
 			setTimeout(function(that) { return function () { that.destroy(); };}(self), 1000);
 		} else {
 			self.destroy();
