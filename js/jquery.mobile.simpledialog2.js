@@ -75,6 +75,7 @@
 		if ( typeof $.mobile.sdLastInput !== 'undefined' ) { delete $.mobile.sdLastInput; }
 		self.internalID = initDate.getTime();
 		self.displayAnchor = $.mobile.activePage.children('.ui-content').first();
+		if ( self.displayAnchor.length === 0 ) { self.displayAnchor = $.mobile.activePage; }
 		
 		self.dialogPage = $("<div data-role='dialog' data-theme='" + o.themeDialog + "'><div data-role='header'></div><div data-role='content'></div></div>");
 		self.sdAllContent = self.dialogPage.find('[data-role=content]');
