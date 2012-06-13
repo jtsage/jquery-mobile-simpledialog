@@ -104,21 +104,21 @@ $(document).delegate('#opendialog', 'click', function() {
 &lt;a href="#" id="opendialog" data-role="button"&gt;Open Dialog&lt;/a&gt;
 
 &lt;!--NOTE: blankContent is set to TRUE, and the content goes IN the div. --&gt;
-%lt;div id="inlinecontent" style="display: none;" 
-  data-options='{"mode":"blank","blankContent":true,"blankContentAdopt":true,"headerText":"Select language","headerClose":false}'%gt;
+&lt;div id="inlinecontent" style="display: none;" 
+  data-options='{"mode":"blank","blankContent":true,"blankContentAdopt":true,"headerText":"Select language","headerClose":false}'&gt;
    
-  %lt;div data-role="fieldcontain"%gt;
-    %lt;fieldset data-role="controlgroup"%gt;
-      %lt;legend%gt;Please select your langauge%lt;/legend%gt;   
+  &lt;div data-role="fieldcontain"&gt;
+    &lt;fieldset data-role="controlgroup"&gt;
+      &lt;legend&gt;Please select your langauge&lt;/legend&gt;   
 						
-      %lt;input type="radio" name="selectedLanguage" id="selectedLanguageEnglsih" value="en" /%gt;
-      %lt;label for="selectedLanguageEnglsih"%gt;English%lt;/label%gt;
-      %lt;input type="radio" name="selectedLanguage" id="selectedLanguageSpanish" value="es" /%gt;
-      %lt;label for="selectedLanguageSpanish"%gt;Español%lt;/label%gt;
-    %lt;/fieldset%gt;
-    %lt;a rel='close' data-role='button' href='#'%gt; Close %lt;/a%gt;
-  %lt;/div%gt;
-%lt;/div%gt;</pre>
+      &lt;input type="radio" name="selectedLanguage" id="selectedLanguageEnglsih" value="en" /&gt;
+      &lt;label for="selectedLanguageEnglsih"&gt;English&lt;/label&gt;
+      &lt;input type="radio" name="selectedLanguage" id="selectedLanguageSpanish" value="es" /&gt;
+      &lt;label for="selectedLanguageSpanish"&gt;Español&lt;/label&gt;
+    &lt;/fieldset&gt;
+    &lt;a rel='close' data-role='button' href='#'&gt; Close &lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
 
 			<strong>jQuery</strong><pre class="prettyprint">
 $(document).delegate('#opendialog', 'click', function() {
