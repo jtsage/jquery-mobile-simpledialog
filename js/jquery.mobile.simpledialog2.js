@@ -8,7 +8,7 @@
 (function($, undefined ) {
   $.widget( "mobile.simpledialog2", $.mobile.widget, {
 	options: {
-		version: '1.0.1-2012022700', // jQueryMobile-YrMoDaySerial
+		version: '1.0.1-2012061300', // jQueryMobile-YrMoDaySerial
 		mode: 'blank', // or 'button'
 		themeDialog: 'b',
 		themeInput: false,
