@@ -167,7 +167,7 @@
 				close  : true
 			}, props);
 			
-			self.butObj.push($("<a href='#'>"+name+"</a>")
+			self.butObj.push($("<a href='#'>"+props.text+"</a>")
 				.appendTo(pickerChoice)
 				.attr('id', props.id)
 				.buttonMarkup({
