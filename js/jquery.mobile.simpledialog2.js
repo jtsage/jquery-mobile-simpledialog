@@ -260,7 +260,7 @@
 					setTimeout("$.mobile.sdCurrentDialog.destroy();", 1000);
 				});
 			} else {
-				self.dialogPage.find('.ui-header a').remove();
+				self.dialogPage.find('.ui-header a').hide();
 			}
 			
 			self.sdIntContent.removeClass().css({'top': 'auto', 'width': 'auto', 'left': 'auto', 'marginLeft': 'auto', 'marginRight': 'auto', 'zIndex': o.zindex});
@@ -305,7 +305,7 @@
 			self.sdIntContent.appendTo(self.displayAnchor.parent());
 			if ( $.mobile.activePage.jqmData("page").options.domCache != true && $.mobile.activePage.is(":jqmData(external-page='true')") ) {
 				$.mobile.activePage.bind("pagehide.remove", function () {
-					$(this).remove();
+					$(this).hide();
 				});
 			}
 		} else {
@@ -337,21 +337,21 @@
 		if ( self.options.mode === 'blank' ) {
 			$.mobile.sdCurrentDialog.sdIntContent.find('select').each(function() {
 				if ( $(this).data('nativeMenu') == false ) {
-					$(this).data('selectmenu').menuPage.remove();
-					$(this).data('selectmenu').screen.remove();
-					$(this).data('selectmenu').listbox.remove();
+					$(this).data('selectmenu').menuPage.hide();
+					$(this).data('selectmenu').screen.hide();
+					$(this).data('selectmenu').listbox.hide();
 				}
 			});
 		}
 		
-		$(self.sdIntContent).remove();
-		$(self.dialogPage).remove();
-		$(self.screen).remove();
+		$(self.sdIntContent).hide();
+		$(self.dialogPage).hide();
+		$(self.screen).hide();
 		$(document).unbind('simpledialog.'+self.internalID);
 		delete $.mobile.sdCurrentDialog;
 		$.Widget.prototype.destroy.call(self);
 		if ( self.options.safeNuke === true && $(ele).parents().length === 0 && $(ele).contents().length === 0 ) {
-			ele.remove();
+			ele.hide();
 		}
 	},
 	updateBlank: function (newHTML) {
