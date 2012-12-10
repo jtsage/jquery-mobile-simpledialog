@@ -275,7 +275,8 @@
 			}
 			
 			self.sdIntContent.addClass('ui-overlay-shadow in').css('zIndex', o.zindex).trigger('create');
-			
+			coords = this._getCoords(this);
+
 			if ( o.fullScreen === true && ( coords.width < 400 || o.fullScreenForce === true ) ) {
 				self.sdIntContent.removeClass('ui-simpledialog-container').css({'border': 'none', 'position': 'absolute', 'top': coords.fullTop, 'left': coords.fullLeft, 'height': coords.high, 'width': coords.width, 'maxWidth': coords.width }).removeClass('ui-simpledialog-hidden');
 			} else {
