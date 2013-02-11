@@ -305,7 +305,6 @@
 		if ( self.isDialog ) {
 			$(self.dialogPage).dialog('close');
 			self.sdIntContent.addClass('ui-simpledialog-hidden');
-			console.log(self.displayAnchor.parent());
 			self.sdIntContent.appendTo(self.displayAnchor.parent());
 			if ( $.mobile.activePage.jqmData("page").options.domCache != true && $.mobile.activePage.is(":jqmData(external-page='true')") ) {
 				$.mobile.activePage.bind("pagehide.remove", function () {
