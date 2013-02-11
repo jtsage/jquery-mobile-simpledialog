@@ -45,8 +45,6 @@
 		callbackOpenArgs: [],
 		callbackClose: false,
 		callbackCloseArgs: [],
-		
-		// newly added
 		removeOnClose: true
 	},
 	_eventHandler: function(e,p) {
@@ -354,7 +352,7 @@
 		}
 		else {
 		  $(self.sdIntContent).hide();
-    }
+    		}
 		
 		$(self.dialogPage).remove();
 		$(self.screen).remove();
