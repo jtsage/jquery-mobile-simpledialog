@@ -338,7 +338,6 @@
 		if ( self.options.mode === 'blank' ) {
 			$.mobile.sdCurrentDialog.sdIntContent.find('select').each(function() {
 				if ( $(this).data('nativeMenu') == false ) {
-				  // not here
 				  $(this).data('selectmenu').menuPage.remove();
 					$(this).data('selectmenu').screen.remove();
 					$(this).data('selectmenu').listbox.remove();
@@ -352,7 +351,7 @@
 		}
 		else {
 		  $(self.sdIntContent).hide();
-    		}
+    	}
 		
 		$(self.dialogPage).remove();
 		$(self.screen).remove();
