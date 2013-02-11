@@ -351,7 +351,7 @@
 		}
 		else {
 		  $(self.sdIntContent).hide();
-    	}
+    }
 		
 		$(self.dialogPage).remove();
 		$(self.screen).remove();
