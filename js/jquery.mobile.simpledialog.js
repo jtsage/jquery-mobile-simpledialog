@@ -180,16 +180,17 @@
 		fromCloseButton = ( typeof(fromCloseButton) === 'undefined' ) ? false : fromCloseButton;
 
 		if ( self.options.useDialog ) {
+			if( self.options.cleanOnClose === true ){
+                            self.pickPage.bind( "pagehide", function() {
+                              self.clean();
+                            });
+			} else {
+                          self.pickerContent.addClass('ui-simpledialog-hidden');
+                          self.thisPage.append(self.pickerContent);
+                        }
 			if ( fromCloseButton === false ) {
 				$(self.pickPage).dialog('close');
 			}
-			if( (typeof self.thisPage.jqmData("page")) !== 'undefined' && ! self.thisPage.jqmData("page").options.domCache ){
-				self.thisPage.bind( "pagehide.remove", function() {
-					$(self).remove();
-				});
-			}
-			self.pickerContent.addClass('ui-simpledialog-hidden');
-			self.thisPage.append(self.pickerContent);
 		} else {
 			if ( self.options.useModal ) {
 				if ( self.options.animate === true ) {
