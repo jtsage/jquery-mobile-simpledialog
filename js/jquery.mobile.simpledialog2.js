@@ -44,7 +44,8 @@
 		callbackOpen: false,
 		callbackOpenArgs: [],
 		callbackClose: false,
-		callbackCloseArgs: []
+		callbackCloseArgs: [],
+		removeOnClose: true
 	},
 	_eventHandler: function(e,p) {
 		// Handle the triggers
@@ -260,7 +261,7 @@
 					setTimeout("$.mobile.sdCurrentDialog.destroy();", 1000);
 				});
 			} else {
-				self.dialogPage.find('.ui-header a').remove();
+			  self.dialogPage.find('.ui-header a').remove();
 			}
 			
 			self.sdIntContent.removeClass().css({'top': 'auto', 'width': 'auto', 'left': 'auto', 'marginLeft': 'auto', 'marginRight': 'auto', 'zIndex': o.zindex});
@@ -305,7 +306,7 @@
 			self.sdIntContent.appendTo(self.displayAnchor.parent());
 			if ( $.mobile.activePage.jqmData("page").options.domCache != true && $.mobile.activePage.is(":jqmData(external-page='true')") ) {
 				$.mobile.activePage.bind("pagehide.remove", function () {
-					$(this).remove();
+				  $(this).remove();
 				});
 			}
 		} else {
@@ -337,14 +338,21 @@
 		if ( self.options.mode === 'blank' ) {
 			$.mobile.sdCurrentDialog.sdIntContent.find('select').each(function() {
 				if ( $(this).data('nativeMenu') == false ) {
-					$(this).data('selectmenu').menuPage.remove();
+				  $(this).data('selectmenu').menuPage.remove();
 					$(this).data('selectmenu').screen.remove();
 					$(this).data('selectmenu').listbox.remove();
 				}
 			});
 		}
+
+		// in case we don't want a content div to be removed from DOM
+		if( self.options.removeOnClose === true ) {
+		  $(self.sdIntContent).remove();
+		}
+		else {
+		  $(self.sdIntContent).hide();
+    }
 		
-		$(self.sdIntContent).remove();
 		$(self.dialogPage).remove();
 		$(self.screen).remove();
 		$(document).unbind('simpledialog.'+self.internalID);
